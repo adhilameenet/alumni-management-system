@@ -3,12 +3,15 @@ const dotenv = require('dotenv')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const { engine } = require('express-handlebars')
+const dbConnection = require('./config/dbConnection')
 const alumniRouter = require('./routes/alumniRoute')
 const facultyRouter = require('./routes/facultyRoute')
 const adminRouter = require('./routes/adminRoute')
 // Environment Variable
 dotenv.config()
 const app = express();
+// Database Connection
+dbConnection.dbConnect()
 // View Engine Setup
 app.engine('hbs', engine({
     extname:'hbs',
@@ -24,8 +27,14 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.get('/' , (req,res) => {
+    res.render('get-started', {
+        title : "Get Started"
+    })
+})
+
 // Routes
-app.use('/', alumniRouter)
+app.use('/alumni', alumniRouter)
 app.use('/faculty', facultyRouter)
 app.use('/admin', adminRouter)
 
