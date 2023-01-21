@@ -1,0 +1,23 @@
+<section class="text-gray-600 body-font py-2">
+  <div class="mx-auto flex">
+    <div class="lg:w-1/1 md:w-1/1 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+      <form action="/alumni/feedback" method="post" autocomplete="off">
+      <h2 class="text-gray-900 text-3xl font-bold title-font">Feedback</h2>
+      <p class="leading-relaxed mb-5 text-2xl text-gray-600">What would you like to share with us ?</p>
+      <div class="grid md:grid-cols-2 md:gap-4">
+        <div class="mb-4">
+        <input type="name" id="name" name="name" placeholder="Name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+      </div>
+      <div class="mb-4">
+        <input type="text" id="batch" name="batch" placeholder="Batch" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+      </div>
+      </div>
+      
+      <div class="mb-4">
+        <textarea id="message" name="message" placeholder="Feedback" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" required></textarea>
+      </div>
+      <button type="submit" class="text-white w-full bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+      </form>
+    </div>
+  </div>
+</section>

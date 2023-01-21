@@ -1,0 +1,31 @@
+<section class="text-gray-600 body-font">
+  {{#each alumni}}
+  <div class="container mx-auto flex flex-wrap items-center">
+    <div class="lg:w-6/6 md:w-2/2  rounded-lg p-5 flex flex-col md:ml-auto w-full md:mt-0">
+      <form action="/alumni/profile" method="post" autocomplete="off">
+      <h2 class="text-gray-900 text-lg font-bold title-font text-3xl mb-5">Alumni Profile</h2>
+      <div class="grid md:grid-cols-2 md:gap-4">
+        <div class="mb-4 ">
+        <input type="text" placeholder="Full Name" name="fullname" value="{{this.name}}" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+      </div>
+      <div class="mb-4">
+        <input type="email" placeholder="Email" name="email" value="{{this.email}}" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+      </div>
+      </div>
+      <div class="mb-4">
+        <input type="text" placeholder="Location" name="location" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+       <div class="grid md:grid-cols-2 md:gap-4">
+        <div class="mb-4 ">
+        <input type="tel" placeholder="Phone Number" name="phone" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <div class="mb-4">
+        <input type="tel" placeholder="Whatsapp Number" name="whatsapp" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      </div>
+      <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Save Profile</button>
+      </form>
+    </div>
+  </div>
+  {{/each}}
+</section>

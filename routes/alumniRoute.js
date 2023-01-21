@@ -10,5 +10,8 @@ router.get('/signup', alumniController.getSignupPage)
 router.post('/signup', alumniController.postSignupPage)
 router.get('/login', alumniController.getLoginPage)
 router.post('/login', alumniController.postLoginPage)
+router.get('/feedback', alumniController.getFeedbackPage)
+router.post('/feedback', alumniController.postFeedbackPage)
+router.get('/profile', alumniController.getAlumniProfilePage)
 
 module.exports = router
