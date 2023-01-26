@@ -1,27 +1,21 @@
-<section class="text-gray-600 body-font">
-  <div class="container mx-auto flex flex-wrap items-center">
-    <div class="lg:w-6/6 md:w-2/2  rounded-lg p-5 flex flex-col md:ml-auto w-full md:mt-0">
-      <form action="/alumni/signup" method="post" autocomplete="off">
-      <h2 class="text-gray-900 text-lg font-bold title-font text-3xl mb-5">Alumni Signup</h2>
-      <div class="grid md:grid-cols-2 md:gap-4">
-        <div class="mb-4 ">
-        <input type="text" placeholder="Full Name" name="fullname" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
-      </div>
-      <div class="mb-4">
-        <input type="email" placeholder="Email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
-      </div>
-      </div>
-      <div class="mb-4">
-        <input type="password" placeholder="Password" name="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
-      </div>
-      <div class="mb-4">
-        <input type="password" placeholder="Confirm Password" name="confirmpassword" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
-      </div>
-      <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg w-full">Signup</button>
-      </form>
-      <div class="mt-4">
-        <a href="/alumni/login">Already have an account? <b>Login</b></a>
-      </div>
-    </div>
-  </div>
-</section>
+<form action="/alumni/signup" method="post" autocomplete="off">
+      <h2>Alumni Signup</h2>
+        <input type="text" placeholder="Full Name" name="fullname" required>  <br><br>
+        <input type="email" placeholder="Email" name="email" required><br><br>
+        Start Year &nbsp;<select name="startyear"><br>
+          {{#each years}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select><br><br>
+        End Year &nbsp;<select name="endyear">
+          {{#each years}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+        <br><br>
+        <input type="password" placeholder="Password" name="password" required><br><br>
+        <input type="password" placeholder="Confirm Password" name="confirmpassword" required><br><br>
+        <button type="submit">Signup</button>
+</form>
+<br><a href="/alumni/login">Already have an account? <b>Login</b></a>
+      

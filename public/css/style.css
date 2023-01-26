@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: 'Montserrat', sans-serif;
+} */
+.container {
+    padding: 10px 20px;
 }

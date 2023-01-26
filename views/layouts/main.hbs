@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css">
     <title>
         {{#if title}}
@@ -22,8 +21,11 @@
     {{#if user}}
         {{>header}}
     {{/if}}
-    <div class="px-16 py-8">
-        {{{body}}}
+    <div>
+        <div class="container">
+            {{{body}}}
+        </div>
     </div>
+    <script src="/js/script.js"></script>
 </body>
 </html>
