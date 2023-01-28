@@ -1,7 +1,15 @@
 <form action="/alumni/signup" method="post" autocomplete="off">
       <h2>Alumni Signup</h2>
-        <input type="text" placeholder="Full Name" name="fullname" required>  <br><br>
+        <input type="text" placeholder="First Name" name="firstname" required>  <br><br>
+        <input type="text" placeholder="Last Name" name="lastname" required>  <br><br>
         <input type="email" placeholder="Email" name="email" required><br><br>
+        Batch <select name="batch">
+          <option value=""></option>
+          {{#each department}}
+          <option value="{{name}}">{{name}}</option>
+          {{/each}}
+        </select>
+        <br><br>
         Start Year &nbsp;<select name="startyear"><br>
           {{#each years}}
           <option value="{{this}}">{{this}}</option>

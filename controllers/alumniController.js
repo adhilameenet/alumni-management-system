@@ -1,50 +1,40 @@
 const User = require('../models/User')
-const helpers = require('../helpers/helper')
 const Feedback = require('../models/Feedback')
+const Department = require('../models/Department')
+const helpers = require('../helpers/helper')
 
-exports.getHomePage = (req, res) => {
+exports.getHomePage = async (req, res) => {
+  
   res.render('alumni/home', {
     title: 'Home',
-    user: true,
+    user: true
   })
 }
-exports.getAboutPage = (req, res) => {
-  res.render('alumni/about', {
-    title: 'About',
-    user: true,
-  })
-}
-exports.getEventsPage = (req, res) => {
-  res.render('alumni/events', {
-    title: 'Events',
-    user: true,
-  })
-}
-exports.getGalleryPage = (req, res) => {
-  res.render('alumni/gallery', {
-    title: 'Gallery',
-    user: true,
-  })
-}
-exports.getSignupPage = (req, res) => {
+
+exports.getSignupPage = async (req, res) => {
+  const departments = await Department.find({}).lean()
   res.render('alumni/signup', {
     title: 'Alumni Signup',
+    department : departments,
     years : helpers.generateYears()
   })
 }
 exports.postSignupPage = async (req, res) => {
-  const { fullname, email, password, confirmpassword } = req.body
   try {
-    const userExist = await User.findOne({ email }).lean()
+    const userExist = await User.findOne({ email:req.body.email }).lean()
     if (userExist) {
       return res.status(400).json({ message: 'User already exist' })
     }
-    if (password == confirmpassword) {
+    if (req.body.password == req.body.confirmpassword) {
       const user = new User({
-        name: fullname,
-        email,
-        password,
-        confirmpassword,
+        firstname : req.body.firstname,
+        lastname : req.body.lastname,
+        email : req.body.email,
+        batch : req.body.batch,
+        startyear : req.body.startyear,
+        endyear : req.body.endyear,
+        password : req.body.password,
+        confirmpassword : req.body.confirmpassword
       })
       await user.save()
       res.redirect('/alumni/login')
@@ -103,7 +93,4 @@ exports.getAlumniProfilePage = async (req, res) => {
     title: 'Profile',
     user: true,
   })
-}
-exports.postAlumniProfilePage = (req, res) => {
-  // logic
 }

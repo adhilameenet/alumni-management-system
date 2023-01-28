@@ -1,7 +1,23 @@
 const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
-  name : {
+  firstname : {
     type : String,
+    required : true
+  },
+  lastname : {
+    type : String,
+    required : true
+  },
+  batch : {
+    type : String,
+    required : true
+  },
+  startyear : {
+    type : Number,
+    required : true
+  },
+  endyear : {
+    type : Number,
     required : true
   },
   email : {

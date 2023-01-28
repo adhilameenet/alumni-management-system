@@ -1,24 +1,20 @@
-<h1>
-  Alumni Verification
-</h1>
-<h2>
-  Request Pending
-</h2>
+<style>
+  .box {
+    border: 1px solid gray;
+    padding: 10px;
+  }
+</style>
+<h1>Alumni Verification</h1>
+<h2>Request Pending</h2>
 <hr />
-
 {{#each alumni}}
-  <img src='/img/user_avatar.png' alt='User Profile' />
-  <h5>
-    {{this.name}}
-  </h5>
-  <span>
-    {{this.email}}
-  </span>
-
-  <a href='#'>
-    Verify
-  </a>
-  <a href='#'>
-    Cancel
-  </a>
+ <div class="box">
+   <img src='/img/user_avatar.png' width="30" alt='User Profile' />
+  <h2>{{this.firstname}} {{this.lastname}}</h2>
+  <h3>{{this.email}}</h3>
+  <h4>{{this.batch}}</h4>
+  <h5>{{this.startyear}} - {{this.endyear}}</h5>
+  <a href='#'>Verify</a>
+  <a href='#'>Cancel</a>
+ </div>
 {{/each}}

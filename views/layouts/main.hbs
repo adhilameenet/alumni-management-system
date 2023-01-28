@@ -19,7 +19,12 @@
 </head>
 <body>
     {{#if user}}
-        {{>header}}
+        {{>alumni-header}}
+    {{else if faculty}}
+        {{>faculty-header}}
+    {{else if admin}}
+        {{>admin-header}}
+    {{else}}
     {{/if}}
     <div>
         <div class="container">
