@@ -1,10 +1,10 @@
 const User = require('../models/User')
 const Feedback = require('../models/Feedback')
 const Department = require('../models/Department')
-const helpers = require('../helpers/helper')
+const Event = require('../models/Event')
+const { generateYears } = require('../helpers/helper')
 
 exports.getHomePage = async (req, res) => {
-  
   res.render('alumni/home', {
     title: 'Home',
     user: true
@@ -16,7 +16,7 @@ exports.getSignupPage = async (req, res) => {
   res.render('alumni/signup', {
     title: 'Alumni Signup',
     department : departments,
-    years : helpers.generateYears()
+    years : generateYears()
   })
 }
 exports.postSignupPage = async (req, res) => {
@@ -58,6 +58,8 @@ exports.postLoginPage = async (req, res) => {
       return res.status(400).json({ message: 'Invalid Email Address' })
     }
     if (user.password == password) {
+      req.session.user = user;
+      req.session.userAuth = true
       res.redirect('/alumni')
     } else {
       res.status(400).json({ message: 'Invalid Password' })
@@ -66,6 +68,13 @@ exports.postLoginPage = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.alumniLogout = (req,res) => {
+  req.session.user = null;
+  req.session.userAuth = false;
+  res.redirect('/alumni/login')
+}
+
 exports.getFeedbackPage = (req, res) => {
   res.render('alumni/feedback', {
     title: 'Feedback',
@@ -86,6 +95,16 @@ exports.postFeedbackPage = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.getEventsPage = async (req,res) => {
+  const allEvents = await Event.find({}).lean()
+  res.render('alumni/view-events', {
+    title : "Events",
+    event : allEvents,
+    user : true
+  })
+}
+
 exports.getAlumniProfilePage = async (req, res) => {
   const alumniProfile = await User.find().limit(1).lean()
   res.render('alumni/profile', {

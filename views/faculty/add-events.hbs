@@ -1,11 +1,11 @@
 <h2>Add Event</h2><br>
-<form action="/faculty/add-events" method="post" >
+<form action="/faculty/add-events" method="post" enctype="multipart/form-data">
     Upload Image
-    <input type="file"><br>
-    <input type="date" placeholder="Date"><br>
-    <input type="text" placeholder="Main Heading"><br>
-    <input type="text" placeholder="Sub Heading"><br>
-    <textarea cols="30" rows="10" placeholder="Description"></textarea><br>
+    <input type="file" name="sampleFile" accept="image/*" ><br>
+    <input type="date" placeholder="Date" name="date" required><br>
+    <input type="text" placeholder="Main Heading" name="main" required><br>
+    <input type="text" placeholder="Sub Heading" name="sub" required><br>
+    <textarea cols="30" rows="10" placeholder="Description" name="description" required></textarea><br>
     <input type="submit" value="Add Event">
 </form>
 

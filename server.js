@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv')
 const path = require('path')
+const session = require('express-session')
 const cookieParser = require('cookie-parser')
+const fileUpload = require('express-fileupload')
 const { engine } = require('express-handlebars')
 const dbConnection = require('./config/dbConnection')
 const alumniRouter = require('./routes/alumniRoute')
@@ -9,9 +11,21 @@ const facultyRouter = require('./routes/facultyRoute')
 const adminRouter = require('./routes/adminRoute')
 // Environment Variable
 dotenv.config()
+
 const app = express();
 // Database Connection
 dbConnection.dbConnect()
+app.use(session({
+    secret : process.env.SESSION_SECRET,
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        maxAge : 1000 * 60 * 60 * 24
+    }
+}))
+app.use(cookieParser())
+app.use(fileUpload())
+
 // View Engine Setup
 app.engine('hbs', engine({
     extname:'hbs',
@@ -21,16 +35,14 @@ app.engine('hbs', engine({
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
+
 // Parse Incoming Data
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
+app.use(express.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/' , (req,res) => {
-    res.render('get-started', {
-        title : "Get Started"
-    })
+app.get('/', (req,res) => {
+    res.render('get-started', { title : "Get Started"})
 })
 
 // Routes
@@ -44,7 +56,6 @@ app.use((req,res,next) => {
         title : "Page Not Found"
     })
 })
-
 // Port
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`));

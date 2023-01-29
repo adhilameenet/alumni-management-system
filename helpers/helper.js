@@ -5,6 +5,6 @@ module.exports = {
     for (let i = currentYear; i >= 1950; i--) {
       years.push(i)
     }
-    return years
+    return years;
   }
 }

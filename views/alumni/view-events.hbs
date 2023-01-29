@@ -1,0 +1,20 @@
+<style>
+    div {
+        border: 2px solid blue;
+        padding: 5px;
+    }
+    div img {
+        margin: 10px;
+    }
+</style>
+<h2>Events</h2>
+<hr>
+{{#each event}}
+    <div>
+        <img src="/uploads/{{imageUrl}}" width="200" alt="Event">
+        <p><b>{{formatedDate}}</b></p>
+        <h2>{{mainHeading}}</h2>
+        <h3>{{subHeading}}</h3>
+        <p style="max-width: 400px;">{{description}}</p>
+    </div>  
+{{/each}}
