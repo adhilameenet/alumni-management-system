@@ -1,0 +1,18 @@
+<style>
+  .box {
+    border: 1px solid gray;
+    padding: 10px;
+  }
+</style>
+<h1>Faculty Verification</h1>
+<h2 style="margin-bottom: 12px;">Request Pending</h2>
+<hr />
+{{#each faculty}}
+  <div class="box">
+    <h2>{{firstname}} {{lastname}}</h2>
+  <h3>{{email}}</h3>
+  <h4>{{department}}</h4>
+  <button><a href='#'>Verify</a></button>
+  <button><a href='#'>Cancel</a></button>
+  </div>
+{{/each}}

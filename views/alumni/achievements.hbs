@@ -1,0 +1,20 @@
+ <style>
+    div {
+        border: 2px solid blue;
+        padding: 5px;
+    }
+    div img {
+        margin: 10px;
+    }
+</style>
+<h2>Achievements</h2> 
+<hr>
+{{#each achievement}}
+    <div>
+        <img src="/uploads/{{imageUrl}}" width="200" alt="Achievement">
+        <h2>{{name}}</h2>
+        <p><b>{{batch}}</b></p>
+        <h3>{{startyear}}-{{endyear}}</h3>
+        <p style="max-width: 400px;">{{description}}</p>
+    </div>  
+{{/each}}

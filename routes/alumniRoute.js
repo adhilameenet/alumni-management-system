@@ -12,5 +12,6 @@ router.get('/logout', verifyUserAuth,alumniController.alumniLogout)
 router.get('/events', verifyUserAuth ,alumniController.getEventsPage)
 router.get('/feedback', verifyUserAuth ,alumniController.getFeedbackPage)
 router.post('/feedback', verifyUserAuth ,alumniController.postFeedbackPage)
+router.get('/achievements',verifyUserAuth, alumniController.getAchievementsPage)
 
 module.exports = router

@@ -1,0 +1,28 @@
+<h2>Add Achievements</h2><br>
+<form action="/faculty/add-achievements" method="post" enctype="multipart/form-data">
+    Upload Image
+    <input type="file" name="sampleFile" accept="image/*" ><br>
+    <input type="text" placeholder="Name" name="name" required><br>
+     Batch 
+     <select name="batch">
+          <option value=""></option>
+          {{#each department}}
+          <option value="{{name}}">{{name}}</option>
+          {{/each}}
+        </select>
+        <br><br>
+        Start Year &nbsp;<select name="startyear"><br>
+          {{#each years}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select><br><br>
+        End Year &nbsp;<select name="endyear">
+          {{#each years}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+        <br>
+    <textarea cols="30" rows="10" placeholder="Achievements" name="description" required></textarea><br>
+    <input type="submit" value="Post">
+</form>
+

@@ -11,7 +11,9 @@ router.post('/login', facultyController.postLoginPage)
 router.get('/verify-alumni',verfyFacultyAuth, facultyController.getVerifyAlumniPage)
 router.get('/add-events',verfyFacultyAuth, facultyController.getAddEventPage)
 router.post('/add-events',verfyFacultyAuth, facultyController.postAddEventPage)
-router.get('/feedbacks',verfyFacultyAuth, facultyController.getAllFeedbackPage)
+router.get('/alumni-feedback',verfyFacultyAuth, facultyController.getAllFeedbackPage)
+router.get('/add-achievements', verfyFacultyAuth, facultyController.getAddAchievementsPage)
+router.post('/add-achievements', verfyFacultyAuth , facultyController.postAddAchievementPage)
 router.get('/logout',verfyFacultyAuth, facultyController.getLogout)
 
 module.exports = router  

@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Feedback = require('../models/Feedback')
+const Achievement = require('../models/Achievement')
 const Department = require('../models/Department')
 const Event = require('../models/Event')
 const { generateYears } = require('../helpers/helper')
@@ -111,5 +112,14 @@ exports.getAlumniProfilePage = async (req, res) => {
     alumni: alumniProfile,
     title: 'Profile',
     user: true,
+  })
+}
+
+exports.getAchievementsPage = async (req,res) => {
+  const allAchievements = await Achievement.find({}).lean()
+  res.render('alumni/achievements' , {
+    title : "Achievements",
+    achievement : allAchievements,
+    user : true
   })
 }

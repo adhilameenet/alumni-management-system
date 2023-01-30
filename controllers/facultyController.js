@@ -1,5 +1,7 @@
 const path = require('path')
 const { v4 } = require('uuid')
+const { generateYears } = require('../helpers/helper')
+const Achievement = require('../models/Achievement')
 const Faculty = require('../models/Faculty')
 const User = require('../models/User')
 const Event = require('../models/Event')
@@ -104,7 +106,6 @@ exports.postAddEventPage = async(req,res) => {
         if(err) {
             return res.status(500).send(err)
         }
-        res.redirect('/faculty')
     })
 
     const newEvent = new Event({
@@ -115,13 +116,53 @@ exports.postAddEventPage = async(req,res) => {
        description : req.body.description 
     })
     await newEvent.save()
+    res.redirect('/faculty')
 }
 
 exports.getAllFeedbackPage = async (req,res) => {
-    const allAlumniFeedback = await Feedback.find().sort({createdAt:-1}).lean()
+    const alumniFeedback = await Feedback.find().sort({createdAt:-1}).lean()
     res.render('faculty/alumni-feedback', { 
         title : "Feedback",
         faculty : true,
-        feedback : allAlumniFeedback 
+        feedback : alumniFeedback,
+
     })
+}
+exports.getAddAchievementsPage = async (req,res) => {
+  const departments = await Department.find({}).lean()
+  res.render('faculty/add-achievements', {
+    title : "Add Achievements",
+    years : generateYears(),
+    department : departments,
+    faculty : true
+  })
+}
+
+exports.postAddAchievementPage = async (req,res) => {
+  let sampleFile;
+  let uploadPath;
+  if(!req.files || Object.keys(req.files).length == 0) {
+      return res.status(400).json({"message":"No file were uploaded"})
+  }
+  sampleFile = req.files.sampleFile
+  const imageExtension = sampleFile.name.split('.')[1]
+  const uploadUrl = v4() + `.${imageExtension}`;
+  uploadPath = path.join(__dirname,'..','public','uploads', uploadUrl )
+  console.log(uploadPath)
+  sampleFile.mv(uploadPath, function(err){
+      if(err) {
+          return res.status(500).send(err)
+      }
+  })
+
+  const newAchievement = new Achievement({
+     imageUrl : uploadUrl,
+     name : req.body.name,
+     batch : req.body.batch,
+     startyear : req.body.startyear,
+     endyear : req.body.endyear,
+     description : req.body.description
+  })
+  await newAchievement.save()
+  res.redirect('/faculty')
 }

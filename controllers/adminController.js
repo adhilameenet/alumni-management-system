@@ -1,3 +1,4 @@
+const Faculty = require('../models/Faculty')
 const Department = require('../models/Department')
 
 exports.getHomePage = (req,res) => {
@@ -41,6 +42,15 @@ exports.postAddDepartment = async (req,res) => {
     await newDepartment.save()
     res.redirect('/admin/departments')
 }
+
+exports.getVeifyFacultyPage = async (req,res) => {
+    const pendingFaculty = await Faculty.find({}).lean()
+    res.render('admin/verify-faculty', {
+        admin : true,
+        faculty : pendingFaculty
+    })
+}
+
 exports.deleteAllDepartment =  async (req,res) => {
     await Department.deleteMany({})
     res.redirect('/admin/departments')
