@@ -1,0 +1,18 @@
+<style>
+  .card {
+    border: 2px solid gray;
+    padding: 10px;
+  }
+</style>
+<h2>All Alumni</h2>
+<hr />
+
+{{#each alumni}}
+  <div class="card">
+    <h2>{{firstname}} {{lastname}}</h2>
+    <h3>{{email}}</h3>
+    <h3>{{batch}}</h3>
+    <h4>{{startyear}}-{{endyear}}</h4>
+    <button><a href="#">View More</a></button>
+  </div>
+{{/each}}

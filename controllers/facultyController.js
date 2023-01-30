@@ -166,3 +166,12 @@ exports.postAddAchievementPage = async (req,res) => {
   await newAchievement.save()
   res.redirect('/faculty')
 }
+
+exports.getAllAlumniPage = async (req,res) => {
+  const allAlumni = await User.find({}).lean()
+  res.render('faculty/all-alumni', {
+    title : "All Alumni",
+    alumni : allAlumni,
+    faculty : true
+  })
+}

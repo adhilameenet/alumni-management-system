@@ -29,9 +29,9 @@ exports.postLoginPage = (req,res) => {
 exports.getDepartmentsPage = async (req,res) => {
     const allDepartments = await Department.find({}).lean()
     res.render("admin/departments", {
+        admin : true,
         title : "Departments",
-        department : allDepartments,
-        admin : true
+        department : allDepartments
     })
 }
 exports.postAddDepartment = async (req,res) => {
@@ -43,10 +43,11 @@ exports.postAddDepartment = async (req,res) => {
     res.redirect('/admin/departments')
 }
 
-exports.getVeifyFacultyPage = async (req,res) => {
+exports.getVerifyFacultyPage = async (req,res) => {
     const pendingFaculty = await Faculty.find({}).lean()
     res.render('admin/verify-faculty', {
         admin : true,
+        title : "Faculty Verification",
         faculty : pendingFaculty
     })
 }

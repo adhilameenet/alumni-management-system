@@ -15,5 +15,6 @@ router.get('/alumni-feedback',verfyFacultyAuth, facultyController.getAllFeedback
 router.get('/add-achievements', verfyFacultyAuth, facultyController.getAddAchievementsPage)
 router.post('/add-achievements', verfyFacultyAuth , facultyController.postAddAchievementPage)
 router.get('/logout',verfyFacultyAuth, facultyController.getLogout)
+router.get('/all-alumni', verfyFacultyAuth , facultyController.getAllAlumniPage)
 
 module.exports = router  
