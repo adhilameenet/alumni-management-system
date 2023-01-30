@@ -22,15 +22,18 @@
   },
   "homepage": "https://github.com/adhilameenet/alumni-management-system#readme",
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
     "mongoose": "^6.8.4",
     "uuid": "^9.0.0"
   }

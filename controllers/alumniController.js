@@ -14,8 +14,9 @@ exports.getHomePage = async (req, res) => {
 
 exports.getSignupPage = async (req, res) => {
   const departments = await Department.find({}).lean()
-  res.render('alumni/signup', {
+  res.render('alumni/signup', { 
     title: 'Alumni Signup',
+    error : req.flash('error'),
     department : departments,
     years : generateYears()
   })
@@ -24,7 +25,8 @@ exports.postSignupPage = async (req, res) => {
   try {
     const userExist = await User.findOne({ email:req.body.email }).lean()
     if (userExist) {
-      return res.status(400).json({ message: 'User already exist' })
+      req.flash('error','User already exist')
+      res.redirect('/alumni/signup')
     }
     if (req.body.password == req.body.confirmpassword) {
       const user = new User({
@@ -38,35 +40,42 @@ exports.postSignupPage = async (req, res) => {
         confirmpassword : req.body.confirmpassword
       })
       await user.save()
+      req.flash('success','Your account has been created successfully!')
       res.redirect('/alumni/login')
     } else {
-      console.log('Password Mismatch')
+      req.flash('error','Passwords does not match')
+      res.redirect('/alumni/signup')
     }
   } catch (error) {
-    console.log(error)
+    res.render('errors/500', { title: "Internal Server Error" })
   }
 }
 exports.getLoginPage = (req, res) => {
   res.render('alumni/login', {
     title: 'Alumni Login',
+    success : req.flash('success'),
+    error : req.flash('error')
   })
 }
 exports.postLoginPage = async (req, res) => {
   const { email, password } = req.body
   try {
     const user = await User.findOne({ email }).lean()
+    console.log(user);
     if (!user) {
-      return res.status(400).json({ message: 'Invalid Email Address' })
+      req.flash('error','Invalid Email Address')
+      return res.redirect('/alumni/login');
     }
     if (user.password == password) {
       req.session.user = user;
       req.session.userAuth = true
       res.redirect('/alumni')
     } else {
-      res.status(400).json({ message: 'Invalid Password' })
+      req.flash('error','Invalid Password')
+      res.redirect('/alumni/login');
     }
   } catch (error) {
-    console.log(error)
+      res.render('errors/500', { title : "Internal Server Error" })
   }
 }
 
@@ -93,7 +102,7 @@ exports.postFeedbackPage = async (req, res) => {
     await newFeedback.save()
     res.redirect('/alumni')
   } catch (error) {
-    console.log(error)
+    res.render('errors/500', { title : "Internal Server Error!" })
   }
 }
 

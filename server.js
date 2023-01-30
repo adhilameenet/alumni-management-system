@@ -1,9 +1,12 @@
 const express = require('express');
 const dotenv = require('dotenv')
 const path = require('path')
+const morgan = require('morgan')
+const methodOverride = require('method-override')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
+const flash = require('connect-flash')
 const { engine } = require('express-handlebars')
 const dbConnection = require('./config/dbConnection')
 const alumniRouter = require('./routes/alumniRoute')
@@ -13,17 +16,21 @@ const adminRouter = require('./routes/adminRoute')
 dotenv.config()
 
 const app = express();
+
 // Database Connection
 dbConnection.dbConnect()
+
+app.use(methodOverride('_method'))
+app.use(morgan(':method :url :status'))
+
 app.use(session({
     secret : process.env.SESSION_SECRET,
     resave : false,
     saveUninitialized : true,
-    cookie : {
-        maxAge : 1000 * 60 * 60 * 24
-    }
+    cookie : { maxAge : 1000 * 60 * 60 * 24 }
 }))
 app.use(cookieParser())
+app.use(flash())
 app.use(fileUpload())
 
 // View Engine Setup
@@ -52,9 +59,7 @@ app.use('/admin', adminRouter)
 
 // Catch 404
 app.use((req,res,next) => {
-    res.render('errors/404', {
-        title : "Page Not Found"
-    })
+    res.render('errors/404', { title : "Page Not Found"})
 })
 // Port
 const PORT = process.env.PORT || 3001;

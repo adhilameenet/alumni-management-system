@@ -1,4 +1,10 @@
 <h1>Faculty Login</h1><br>
+{{#if success}}
+    <p style="color: green;">{{success}}</p>
+{{/if}}
+{{#if error}}
+    <p style="color: red;">{{error}}</p>
+{{/if}}
 <form action="/faculty/login" method="post" autocomplete="off">
     <input type="email" value="test@gmail.com" name="email" placeholder="Email" required><br><br>
     <input type="password" value="123" name="password" placeholder="Password" required><br><br>

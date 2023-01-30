@@ -1,7 +1,13 @@
+<h2>Alumni Login</h2>
+{{#if error}}
+  <p style="color: red;">{{error}}</p>
+{{/if}}
+{{#if success}}
+  <p style="color: green;">{{success}}</p>
+{{/if}}
 <form action='/alumni/login' method='post' autocomplete='off'>
-  <h2>Alumni Login</h2>
-  <input type='email' value="adhil@gmail.com" placeholder='Email' name='email' required /><br>
-  <input type='password' value="123" placeholder='Password' name='password' required /><br>
+  <input type='email' placeholder='Email' name='email' required /><br>
+  <input type='password' placeholder='Password' name='password' required /><br>
   <button type='submit'>Login</button>
 </form>
 <a href='/alumni/signup'>Not a member ?<b>Signup</b></a>

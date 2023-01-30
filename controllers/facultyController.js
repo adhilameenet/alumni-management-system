@@ -11,6 +11,7 @@ const Department = require('../models/Department')
 exports.getHomePage = (req,res) => {
     res.render('faculty/home', {
         title:"Home",
+        success : req.flash('success'),
         faculty : true
     })
 }
@@ -18,6 +19,8 @@ exports.getSignupPage = async (req,res) => {
     const departments = await Department.find({}).lean()
     res.render('faculty/signup', {
         title : "Signup",
+        success : req.flash('success'),
+        error : req.flash('error'),
         department : departments
     })
 }
@@ -25,7 +28,8 @@ exports.postSignupPage = async (req,res) => {
     try {
         const facultyExist = await Faculty.findOne({ email:req.body.email }).lean()
         if (facultyExist) {
-          return res.status(400).json({ message: 'User already exist' })
+          req.flash('error','User already exist')
+          return res.redirect('/faculty/signup')
         }
         if (req.body.password == req.body.confirmpassword) {
           const faculty = new Faculty({
@@ -37,16 +41,20 @@ exports.postSignupPage = async (req,res) => {
             confirmpassword : req.body.confirmpassword
           })
           await faculty.save()
+          req.flash('success','Your account has been created successfully!')
           res.redirect('/faculty/login')
         } else {
-          console.log('Password Mismatch')
+          req.flash('error','Passwords does not match')
+          res.redirect('/faculty/signup')
         }
       } catch (error) {
-        console.log(error)
+        res.render('errors/500', { title : "Internal Server Error" })
       }
 }
 exports.getLoginPage = (req,res) => {
     res.render('faculty/login', {
+        success : req.flash('success'),
+        error : req.flash('error'),
         title : "Login"
     })
 }
@@ -55,18 +63,21 @@ exports.postLoginPage = async (req,res) => {
     try {
       const faculty = await Faculty.findOne({ email }).lean()
       if (!faculty) {
-        return res.status(400).json({ message: 'Invalid Email Address' })
+        req.flash('error','Invalid Email Address')
+        return res.redirect('/faculty/login')
       }
       console.log(password);
       if (faculty.password == password) {   
         req.session.faculty = faculty;
         req.session.facultyAuth = true;
+        req.flash('success','Login Success!')
         res.redirect('/faculty')
       } else {
-        res.status(400).json({ message: 'Invalid Password' })
+        req.flash('error','Invalid Password')
+        res.redirect('/faculty/login')
       }
     } catch (error) {
-      console.log(error)
+      res.render('errors/500', { title : "Internal Server Error" })
     }
 }
 exports.getVerifyAlumniPage = async (req,res) => {

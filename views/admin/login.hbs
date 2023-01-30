@@ -1,6 +1,9 @@
 <h1>Admin Login</h1><br><br>
+{{#if error}}
+    <p style="color: red;">{{error}}</p>
+{{/if}}
 <form action="/admin/login" method="post" autocomplete="off">
-    <input type="email" value="admin@gmail.com" placeholder="Email Address" name="email" required><br><br>
-    <input type="password" value="admin123" placeholder="Password" name="password" required><br><br>
+    <input type="email" value="abc@gmail.com" placeholder="Email Address" name="email" required><br><br>
+    <input type="password" placeholder="Password" name="password" required><br><br>
     <input type="submit">
 </form>

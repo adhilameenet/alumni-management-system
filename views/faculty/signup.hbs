@@ -1,19 +1,27 @@
-<h2>Faculty Signup</h2><br><br>
+<h2>Faculty Signup</h2><br /><br />
+{{#if error}}
+    <p style="color: red;">{{error}}</p>
+{{/if}}
 <form action="/faculty/signup" method="post" autocomplete="off">
-    <input type="text" placeholder="First Name" name="firstname"><br><br>
-    <input type="text" placeholder="Last Name" name="lastname"><br><br>
-    <input type="email" placeholder="Email Address" name="email"><br><br>
-    Department <br>
-    <select name="department">
-          <option value=""></option>
-          {{#each department}}
-          <option value="{{name}}">{{name}}</option>
-          {{/each}}
-    </select>
-    <br><br>
-    <input type="password" placeholder="Password" name="password"><br><br>
-    <input type="password" placeholder="Confirm Password" name="confirmpassword"><br><br>
-    <button type="submit">Signup</button><br><br>
-    <a href="/faculty/login">Already have an account ? <b>Login</b></a><br>
-    <a href="#">Forgotten Password</a>
+  <input type="text" placeholder="First Name" name="firstname" /><br /><br />
+  <input type="text" placeholder="Last Name" name="lastname" /><br /><br />
+  <input type="email" placeholder="Email Address" name="email" /><br /><br />
+  Department
+  <br />
+  <select name="department">
+    <option value=""></option>
+    {{#each department}}
+      <option value="{{name}}">{{name}}</option>
+    {{/each}}
+  </select>
+  <br /><br />
+  <input type="password" placeholder="Password" name="password" /><br /><br />
+  <input
+    type="password"
+    placeholder="Confirm Password"
+    name="confirmpassword"
+  /><br /><br />
+  <button type="submit">Signup</button><br /><br />
+  <a href="/faculty/login">Already have an account ? <b>Login</b></a><br />
+  <a href="#">Forgotten Password</a>
 </form>

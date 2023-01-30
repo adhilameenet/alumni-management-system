@@ -4,11 +4,13 @@ const Department = require('../models/Department')
 exports.getHomePage = (req,res) => {
     res.render('admin/home', {
         title:"Home",
+        success : req.flash('success'),
         admin : true
     })
 }
 exports.getLoginPage = (req,res) => {
     res.render('admin/login', {
+        error : req.flash('error'),
         title : "Login"
     })
 }
@@ -19,11 +21,12 @@ exports.postLoginPage = (req,res) => {
     if(email == adminEmail && password == adminPassword) {
         req.session.admin = adminEmail;
         req.session.adminAuth = true;
+        req.flash('success','Login Success!')
         res.redirect('/admin')
     } else {
-        res.json({message : "Invalid Credentials"})
+        req.flash('error', 'Invalid Email or Password')
+        res.redirect('/admin/login')
     }
-
 }
 
 exports.getDepartmentsPage = async (req,res) => {
