@@ -6,5 +6,24 @@ module.exports = {
       years.push(i)
     }
     return years;
+  },
+  generateDistricts: () => {
+    const districts = [
+      "Kasaragod",
+      "Kannur",
+      "Wayanad", 
+      "Kozhikkode", 
+      "Malappuram",
+      "Palakkad",
+      "Thrissur",
+      "Eranakulam",
+      "Thiruvananthapuram",
+      "Kollam",
+      "Alappuzha",
+      "Pathanamthitta",
+      "Kottayam",
+      "Idukki"
+    ]
+    return districts;
   }
 }

@@ -3,7 +3,7 @@ const Feedback = require('../models/Feedback')
 const Achievement = require('../models/Achievement')
 const Department = require('../models/Department')
 const Event = require('../models/Event')
-const { generateYears } = require('../helpers/helper')
+const { generateYears, generateDistricts } = require('../helpers/helper')
 
 exports.getHomePage = async (req, res) => {
   res.render('alumni/home', {
@@ -115,10 +115,11 @@ exports.getEventsPage = async (req,res) => {
   })
 }
 
-exports.getAlumniProfilePage = async (req, res) => {
-  const alumniProfile = await User.find().limit(1).lean()
+exports.getProfilePage = async (req, res) => {
+  const departments = await Department.find({}).lean()
   res.render('alumni/profile', {
-    alumni: alumniProfile,
+    districts : generateDistricts(),
+    department : departments,
     title: 'Profile',
     user: true,
   })

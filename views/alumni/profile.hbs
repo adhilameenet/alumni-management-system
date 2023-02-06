@@ -1,27 +1,31 @@
-{{#each alumni}}
-  <form action='/alumni/profile' method='post' autocomplete='off'>
-    <h2>
-      Alumni Profile
-    </h2>
-    <input
-      type='text'
-      placeholder='Full Name'
-      name='fullname'
-      value="{{this.name}}"
-      required
-    />
-    <input
-      type='email'
-      placeholder='Email'
-      name='email'
-      value="{{this.email}}"
-      required
-    />
-    <input type='text' placeholder='Location' name='location' />
-    <input type='tel' placeholder='Phone Number' name='phone' />
-    <input type='tel' placeholder='Whatsapp Number' name='whatsapp' />
-    <button type='submit'>
-      Save Profile
-    </button>
-  </form>
-{{/each}}
+<form action="/alumni/profile" method="post" autocomplete="off">
+  <h2>Alumni Profile</h2><br />
+  Upload Profile Image
+  <input type="file" /><br /><br />
+  <input type="text" placeholder="First Name" name="firstname" required /><br />
+  <input type="text" placeholder="Last Name" name="lastname" required />
+  <br />
+  <input type="email" placeholder="Email" name="email" required />
+  <br />
+  Batch
+  <select name="batch">
+    <option value=""></option>
+    {{#each department}}
+      <option value="{{name}}">{{name}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <input type="text" placeholder="Location" name="location" /><br />
+  District <br>
+  <select name="district">
+    <option value=""></option>
+    {{#each districts}}
+      <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select><br>
+  <input type="tel" placeholder="Phone Number" name="phone" />
+  <br />
+  <input type="tel" placeholder="Whatsapp Number" name="whatsapp" />
+  <br />
+  <button type="submit">Save Profile</button>
+</form>
