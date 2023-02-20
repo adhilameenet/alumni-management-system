@@ -7,9 +7,17 @@
   <br />
   <input type="email" placeholder="Email" name="email" required />
   <br />
-  Batch
+  Blood Group <br>
+  <select name="bloodgroup">
+    <option value="">Select</option>
+    {{#each bloodgroups}}
+      <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+  <br>
+  Batch <br>
   <select name="batch">
-    <option value=""></option>
+    <option value="">Select</option>
     {{#each department}}
       <option value="{{name}}">{{name}}</option>
     {{/each}}
@@ -18,7 +26,7 @@
   <input type="text" placeholder="Location" name="location" /><br />
   District <br>
   <select name="district">
-    <option value=""></option>
+    <option value="">Select</option>
     {{#each districts}}
       <option value="{{this}}">{{this}}</option>
     {{/each}}
@@ -27,5 +35,9 @@
   <br />
   <input type="tel" placeholder="Whatsapp Number" name="whatsapp" />
   <br />
+  Gender <br>
+  <input type="radio" value="male" name="gender">Male
+  <input type="radio" value="female" name="gender">Female
+  <br>
   <button type="submit">Save Profile</button>
 </form>

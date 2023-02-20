@@ -1,0 +1,19 @@
+<style>
+    div {
+        border: 2px solid blue;
+        padding: 5px;
+    }
+    div img {
+        margin: 10px;
+    }
+</style>
+<h2>Donations</h2>
+<hr>
+{{#each donation}}
+    <div>
+        <img src="/uploads/{{imageUrl}}" width="200" alt="Donation illustration">
+        <h2>{{title}}</h2>
+        <p style="max-width: 400px;">{{description}}</p>
+        <button style="margin-top: 10px;">Donate now</button>
+    </div>  
+{{/each}}

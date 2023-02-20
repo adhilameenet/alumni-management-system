@@ -1,9 +1,9 @@
 module.exports = {
   generateYears: () => {
-    const currentYear = new Date().getFullYear()
-    const years = []
+    const currentYear = new Date().getFullYear();
+    const years = [];
     for (let i = currentYear; i >= 1950; i--) {
-      years.push(i)
+      years.push(i);
     }
     return years;
   },
@@ -11,8 +11,8 @@ module.exports = {
     const districts = [
       "Kasaragod",
       "Kannur",
-      "Wayanad", 
-      "Kozhikkode", 
+      "Wayanad",
+      "Kozhikkode",
       "Malappuram",
       "Palakkad",
       "Thrissur",
@@ -22,8 +22,12 @@ module.exports = {
       "Alappuzha",
       "Pathanamthitta",
       "Kottayam",
-      "Idukki"
-    ]
+      "Idukki",
+    ];
     return districts;
-  }
-}
+  },
+  generateBloodGroups: () => {
+    const bloodgroups = ["A+", "A-", "AB+", "AB-", "B+", "B-", "O+", "O-"];
+    return bloodgroups;
+  },
+};

@@ -6,6 +6,7 @@ const Faculty = require('../models/Faculty')
 const User = require('../models/User')
 const Event = require('../models/Event')
 const Feedback = require('../models/Feedback')
+const Donation = require('../models/Donation')
 const Department = require('../models/Department')
 
 exports.getHomePage = (req,res) => {
@@ -177,6 +178,39 @@ exports.postAddAchievementPage = async (req,res) => {
   await newAchievement.save()
   res.redirect('/faculty')
 }
+
+exports.getDonationsPage = (req,res) => {
+  res.render('faculty/add-donations', {
+    title : "Add Donations",
+    faculty : true
+  })
+}
+
+exports.postDonationsPage = async (req,res) => {
+  let sampleFile;
+  let uploadPath;
+  if(!req.files || Object.keys(req.files).length == 0) {
+      return res.status(400).json({"message":"No file were uploaded"})
+  }
+  sampleFile = req.files.sampleFile
+  const imageExtension = sampleFile.name.split('.')[1]
+  const uploadUrl = v4() + `.${imageExtension}`;
+  uploadPath = path.join(__dirname,'..','public','uploads', uploadUrl )
+  console.log(uploadPath)
+  sampleFile.mv(uploadPath, function(err){
+      if(err) {
+          return res.status(500).send(err)
+      }
+  })
+
+  const newDonation = new Donation({
+     imageUrl : uploadUrl,
+     title : req.body.main,
+     description : req.body.description
+  })
+  await newDonation.save()
+  res.redirect('/faculty')
+} 
 
 exports.getAllAlumniPage = async (req,res) => {
   const allAlumni = await User.find({}).lean()
