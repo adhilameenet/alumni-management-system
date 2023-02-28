@@ -14,7 +14,8 @@
   <h3>{{this.email}}</h3>
   <h4>{{this.batch}}</h4>
   <h5>{{this.startyear}} - {{this.endyear}}</h5>
-  <button><a href='#'>Verify</a></button>
-  <button><a href='#'>Cancel</a></button>
+  <form action="/faculty/verify-alumni" method="post">
+    <button type="submit">Verify</a></button>
+  </form>
  </div>
 {{/each}}

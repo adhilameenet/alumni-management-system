@@ -1,27 +1,151 @@
-<h2>Faculty Signup</h2><br /><br />
-{{#if error}}
-    <p style="color: red;">{{error}}</p>
-{{/if}}
-<form action="/faculty/signup" method="post" autocomplete="off">
-  <input type="text" placeholder="First Name" name="firstname" /><br /><br />
-  <input type="text" placeholder="Last Name" name="lastname" /><br /><br />
-  <input type="email" placeholder="Email Address" name="email" /><br /><br />
-  Department
-  <br />
-  <select name="department">
-    <option value=""></option>
-    {{#each department}}
-      <option value="{{name}}">{{name}}</option>
-    {{/each}}
-  </select>
-  <br /><br />
-  <input type="password" placeholder="Password" name="password" /><br /><br />
-  <input
-    type="password"
-    placeholder="Confirm Password"
-    name="confirmpassword"
-  /><br /><br />
-  <button type="submit">Signup</button><br /><br />
-  <a href="/faculty/login">Already have an account ? <b>Login</b></a><br />
-  <a href="#">Forgotten Password</a>
-</form>
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        >
+          Faculty Signup
+        </h1>
+        {{#if error}}
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative alert-delete"
+            role="alert"
+          >
+            <span class="block sm:inline">{{error}}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              <svg
+                class="fill-current h-6 w-6 text-red-500"
+                role="button"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              ><title>Close</title><path
+                  d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                ></path></svg>
+            </span>
+          </div>
+        {{/if}}
+        <form
+          class="space-y-4 md:space-y-6"
+          action="/faculty/signup"
+          method="post"
+          autocomplete="off"
+        >
+          <div class="flex space-x-4">
+            <div>
+            <label
+              for="text"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >First Name</label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="John"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="lastname"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Last Name</label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Doe"
+              required
+            />
+          </div>
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="john@gmail.com"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="countries"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Department</label>
+            <select
+              name="department"
+              id="department"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option selected>Select</option>
+              {{#each department}}
+                <option value="{{name}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="flex space-x-4">
+            <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="confirmpassword"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Confirm Password</label>
+            <input
+              type="password"
+              name="confirmpassword"
+              id="confirmpassword"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >Signup</button>
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="text-sm">
+                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Already have an account ?
+                  <a
+                    href="/faculty/login"
+                    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >Login</a>
+                </p>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+            >Forgot password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

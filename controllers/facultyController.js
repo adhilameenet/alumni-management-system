@@ -8,6 +8,7 @@ const Event = require('../models/Event')
 const Feedback = require('../models/Feedback')
 const Donation = require('../models/Donation')
 const Department = require('../models/Department')
+const { truncate } = require('fs')
 
 exports.getHomePage = (req,res) => {
     res.render('faculty/home', {
@@ -42,7 +43,7 @@ exports.postSignupPage = async (req,res) => {
             confirmpassword : req.body.confirmpassword
           })
           await faculty.save()
-          req.flash('success','Your account has been created successfully!')
+          req.flash('success','Registration submitted. Please wait for verification.')
           res.redirect('/faculty/login')
         } else {
           req.flash('error','Passwords does not match')
@@ -82,12 +83,17 @@ exports.postLoginPage = async (req,res) => {
     }
 }
 exports.getVerifyAlumniPage = async (req,res) => {
-    const pendingAlumni = await User.find().lean()
+    const pendingAlumni = await User.find({}).lean()
     res.render('faculty/verify-alumni', { 
         title : "Verify Alumni",
         faculty : true,
         alumni:pendingAlumni 
     })
+}
+
+exports.postVerifyAlumni = async (req,res) => {
+  const alumni = await User.find({_id}).lean();
+  console.log(alumni)
 }
 
 exports.getAddEventPage = (req,res) => {

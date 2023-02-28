@@ -1,15 +1,94 @@
-<h1>Faculty Login</h1><br>
-{{#if success}}
-    <p style="color: green;">{{success}}</p>
-{{/if}}
-{{#if error}}
-    <p style="color: red;">{{error}}</p>
-{{/if}}
-<form action="/faculty/login" method="post" autocomplete="off">
-    <input type="email" value="test@gmail.com" name="email" placeholder="Email" required><br><br>
-    <input type="password" value="test123" name="password" placeholder="Password" required><br><br>
-    <button type="submit">Login</button>
-    <br><br>
-    <a href='/faculty/signup'>Not a Faculty ?<b>Signup</b></a><br><br>
-    <a href="#">Forgotten Password</a>
-</form>
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        >
+          Faculty Login
+        </h1>
+        {{#if error}}
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative alert-delete"
+            role="alert"
+          >
+            <span class="block sm:inline">{{error}}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+             <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+          </div>
+        {{/if}}
+        {{#if success}}
+          <div
+            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative alert-delete"
+            role="alert"
+          >
+            <span class="block sm:inline">{{success}}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+             <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+          </div>
+        {{/if}}
+        <form
+          class="space-y-4 md:space-y-6"
+          action="/faculty/login"
+          method="post"
+          autocomplete="off"
+        >
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="john@gmail.com"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >Login</button>
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="text-sm">
+                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Don’t have an account yet?
+                  <a
+                    href="/faculty/signup"
+                    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >Sign up</a>
+                </p>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+            >Forgot password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
