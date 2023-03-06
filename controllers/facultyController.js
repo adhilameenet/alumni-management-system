@@ -8,7 +8,6 @@ const Event = require('../models/Event')
 const Feedback = require('../models/Feedback')
 const Donation = require('../models/Donation')
 const Department = require('../models/Department')
-const { truncate } = require('fs')
 
 exports.getHomePage = (req,res) => {
     res.render('faculty/home', {
@@ -96,10 +95,13 @@ exports.postVerifyAlumni = async (req,res) => {
   console.log(alumni)
 }
 
-exports.getAddEventPage = (req,res) => {
+exports.getAddEventPage = async (req,res) => {
+  const departments = await Department.find({}).lean()
     res.render('faculty/add-events', {
         title : "Add Events",
-        faculty : true
+        faculty : true,
+        department : departments,
+        years : generateYears()
     })
 }
 

@@ -1,8 +1,28 @@
-<nav>
-    <h1>Admin Dashboard</h1>
-    <button><a href="/admin">Home</a></button>
-    <button><a href="/admin/departments">Departments</a></button>
-    <button><a href="/admin/faculty-verification">Verify Faculty</a></button>
-    <button><a href="/admin/logout">Logout</a></button>
-</nav>
-<hr>
+<header class="text-gray-600 body-font">
+  <div
+    class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+  >
+    <a
+      class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+    >
+      <span class="ml-3 text-xl font-bold">ProjectName</span>
+    </a>
+    <nav
+      class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+    >
+      <a href="/admin" class="mr-5 hover:text-gray-900">Home</a>
+      <a
+        href="/admin/departments"
+        class="mr-5 hover:text-gray-900"
+      >Departments</a>
+      <a
+        href="/admin/faculty-verification"
+        class="mr-5 hover:text-gray-900"
+      >Verify Faculty</a>
+    </nav>
+    <button
+      class="inline-flex items-center bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-base mt-4 md:mt-0"
+    ><a href="/admin/logout">Logout</a>
+    </button>
+  </div>
+</header>

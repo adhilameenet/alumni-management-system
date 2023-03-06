@@ -1,11 +1,29 @@
-<nav>
-    <h2>Faculty Dashboard</h2>
-    <button><a href="/faculty/all-alumni">All Alumni</a></button>
-    <button><a href="/faculty/verify-alumni">Verify Alumni</a></button>
-    <button><a href="/faculty/add-events">Add Events</a></button>
-    <button><a href="/faculty/add-achievements">Add Achievements</a></button>
-    <button><a href="/faculty/add-donations">Add Donations</a></button>
-    <button><a href="/faculty/alumni-feedback">Alumni Feedback</a></button>
-    <button style="background-color: red;"><a href="/faculty/logout">Logout</a></button>
-</nav>
-<hr>
+<header class="text-gray-600 body-font sticky top-0 z-50 bg-white">
+  <div
+    class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+  >
+    <a
+      class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+    >
+      <span class="ml-3 text-xl">ProjectName</span>
+    </a>
+    <nav
+      class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+    >
+      <a href="/faculty/all-alumni" class="mr-5 hover:text-gray-900">All Alumni</a>
+      <a href="/faculty/verify-alumni" class="mr-5 hover:text-gray-900">Verify
+        Alumni</a>
+        <a href="/faculty/add-events" class="mr-5 hover:text-gray-900">Add Events</a>
+      <a href="/faculty/add-achievements" class="mr-5 hover:text-gray-900">Add
+        Achievements</a>
+      <a href="/faculty/add-donations" class="mr-5 hover:text-gray-900">Add
+        Donations</a>
+      <a href="/faculty/alumni-feedback" class="mr-5 hover:text-gray-900">Alumni
+        Feedback</a>
+    </nav>
+    <button
+      class="inline-flex items-center bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-base mt-4 md:mt-0"
+    ><a href="/faculty/logout">Logout</a>
+    </button>
+  </div>
+</header>

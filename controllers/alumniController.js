@@ -90,10 +90,12 @@ exports.alumniLogout = (req, res) => {
   res.redirect("/alumni/login");
 };
 
-exports.getFeedbackPage = (req, res) => {
+exports.getFeedbackPage = async (req, res) => {
+  const departments = await Department.find({}).lean();
   res.render("alumni/feedback", {
     title: "Feedback",
     user: true,
+    department : departments
   });
 };
 exports.postFeedbackPage = async (req, res) => {

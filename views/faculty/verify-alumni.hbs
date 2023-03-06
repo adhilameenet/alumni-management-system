@@ -1,21 +1,25 @@
-<style>
-  .box {
-    border: 1px solid gray;
-    padding: 10px;
-  }
-</style>
-<h1>Alumni Verification</h1>
-<h2>Request Pending</h2>
-<hr />
-{{#each alumni}}
- <div class="box">
-   <img src='/img/user_avatar.png' width="30" alt='User Profile' />
-  <h2>{{this.firstname}} {{this.lastname}}</h2>
-  <h3>{{this.email}}</h3>
-  <h4>{{this.batch}}</h4>
-  <h5>{{this.startyear}} - {{this.endyear}}</h5>
-  <form action="/faculty/verify-alumni" method="post">
-    <button type="submit">Verify</a></button>
-  </form>
- </div>
-{{/each}}
+<div class="grid grid-cols-3 gap-4">
+  {{#each alumni}}
+    <div class="flex flex-col items-center p-4 border border-gray-300">
+      <img
+        class="w-20 h-20 mb-3 rounded-full shadow-lg"
+        src="/img/user_avatar.png"
+        alt="image"
+      />
+      <h5
+        class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+      >{{firstname}} {{lastname}}</h5>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{{email}}</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{{batch}}</span>
+      <span
+        class="text-sm text-gray-500 dark:text-gray-400"
+      >{{startyear}}-{{endyear}}</span>
+      <div class="flex mt-4 md:mt-6">
+        <a
+          href="#"
+          class="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >Verify</a>
+      </div>
+    </div>
+  {{/each}}
+</div>

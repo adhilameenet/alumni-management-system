@@ -1,11 +1,18 @@
-<nav>
-  <h1>Alumni Dashboard</h1>
-  <button><a href='/alumni'>Home</a></button>
-  <button><a href='/alumni/profile'>Profile</a></button>
-  <button><a href='/alumni/feedback'>Feedback</a></button>
-  <button><a href="/alumni/events">Events</a></button>
-  <button><a href="/alumni/achievements">Achievements</a></button>
-  <button><a href="/alumni/donations">Donations</a></button>
-  <button style="background-color: red; color: white;"><a href="/alumni/logout">Logout</a></button>
-</nav>
-<hr>
+<header class="text-gray-600 body-font">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <span class="ml-3 text-xl font-bold">ProjectName</span>
+    </a>
+    <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+      <a href="/alumni" class="mr-5 hover:text-gray-900">Home</a>
+      <a href="/alumni/profile" class="mr-5 hover:text-gray-900">Profile</a>
+      <a href="/alumni/feedback" class="mr-5 hover:text-gray-900">Feedback</a>
+      <a href="/alumni/events" class="mr-5 hover:text-gray-900">Events</a>
+      <a href="/alumni/donations" class="mr-5 hover:text-gray-900">Donations</a>
+    </nav>
+    <button
+      class="inline-flex items-center bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-base mt-4 md:mt-0"
+    ><a href="/alumni/logout">Logout</a>
+    </button>
+  </div>
+</header>
