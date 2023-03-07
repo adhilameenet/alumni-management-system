@@ -1,17 +1,65 @@
-<form action="/admin/departments" method="post" autocomplete="off">
-    <input type="text" placeholder="Department" name="department" required>
-    <input type="submit" value="Save">
-</form>
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-8 mx-auto">
+    <form action="/admin/departments" method="post" autocomplete="off">
+      <div class="relative mb-10">
+        <input
+          type="text"
+          name="department"
+          class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Department"
+          required
+        />
+        <button
+          type="submit" 
+          class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >Add Department</button>
+      </div>
+    </form>
+    <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
+      {{#each department}}
+        <div class="p-2 sm:w-1/2 w-full">
+          <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4"
+              viewBox="0 0 24 24"
+            >
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+              <path d="M22 4L12 14.01l-3-3"></path>
+            </svg>
+            <span class="title-font font-medium">{{this.name}}</span>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+      <button
+        type="submit"
+        id="clearBtn"
+        class="flex mx-auto mt-16 text-white bg-red-500 border-0 py-2 px-5 focus:outline-none hover:bg-red-600 rounded text-lg"
+      >Clear All</button>
+  </div>
+</section>
 
-<br><br>
-<div>
-    <h2>All Departments</h2>
-    <hr>
-    {{#each department}}    
-        <li>{{this.name}}</li> 
-    {{/each}}
-</div>
-<br><br>
-<form action="/admin/departments/delete-all?_method=DELETE" method="post">
-    <button type="submit">Clear All</button>
-</form>
+<script>
+    const clearButton = document.getElementById('clearBtn');
+    clearButton.addEventListener('click', () => {
+        const response = confirm("Are you sure want to delete this item ?")
+        if(response) {
+            fetch('/admin/departments/delete-all',{
+                method:'DELETE'
+            }).then((res) => {
+                if(res.ok) {
+                    location.reload()
+                } else {
+                    alert("Failed to Clear");
+                }
+            }).catch((err) => {
+                console.log("Failed to Delete");
+            })
+        }
+    })
+</script>
