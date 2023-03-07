@@ -45,7 +45,7 @@ exports.postSignupPage = async (req, res) => {
         confirmpassword: req.body.confirmpassword,
       });
       await user.save();
-      req.flash("success", "Your account has been created successfully!");
+      req.flash("success", "Registration submitted. Please wait for verification.");
       res.redirect("/alumni/login");
     } else {
       req.flash("error", "Passwords does not match");
@@ -72,6 +72,10 @@ exports.postLoginPage = async (req, res) => {
       return res.redirect("/alumni/login");
     }
     if (user.password == password) {
+      if(!user.isVerified) {
+        req.flash('error','Not Verified by Admin');
+        return res.redirect('/alumni/login')
+      }
       req.session.user = user;
       req.session.userAuth = true;
       res.redirect("/alumni");

@@ -69,6 +69,10 @@ exports.postLoginPage = async (req,res) => {
       }
       console.log(password);
       if (faculty.password == password) {   
+        if(!faculty.isVerified) {
+          req.flash('error','Not Verified by Admin')
+          return res.redirect('/faculty/login')
+        }
         req.session.faculty = faculty;
         req.session.facultyAuth = true;
         req.flash('success','Login Success!')
@@ -82,7 +86,7 @@ exports.postLoginPage = async (req,res) => {
     }
 }
 exports.getVerifyAlumniPage = async (req,res) => {
-    const pendingAlumni = await User.find({}).lean()
+    const pendingAlumni = await User.find({ isVerified:false }).lean()
     res.render('faculty/verify-alumni', { 
         title : "Verify Alumni",
         faculty : true,
@@ -91,8 +95,15 @@ exports.getVerifyAlumniPage = async (req,res) => {
 }
 
 exports.postVerifyAlumni = async (req,res) => {
-  const alumni = await User.find({_id}).lean();
-  console.log(alumni)
+  try {
+    const alumniId = req.params.id;
+    await User.findByIdAndUpdate( alumniId , { isVerified : true })
+    res.redirect('/faculty/verify-alumni')
+} catch (error) {
+    res.render('errors/500', {
+        title : "Internal Server Error"
+    })
+}
 }
 
 exports.getAddEventPage = async (req,res) => {
@@ -221,7 +232,7 @@ exports.postDonationsPage = async (req,res) => {
 } 
 
 exports.getAllAlumniPage = async (req,res) => {
-  const allAlumni = await User.find({}).lean()
+  const allAlumni = await User.find({ isVerified:true }).lean()
   res.render('faculty/all-alumni', {
     title : "All Alumni",
     alumni : allAlumni,

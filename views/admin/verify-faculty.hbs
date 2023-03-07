@@ -14,17 +14,15 @@
         class="text-sm text-gray-500 dark:text-gray-400"
       >{{department}}</span>
       <div class="flex mt-4 md:mt-6">
-        <button id="verifyButton">
-          <a
-            class="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <form action="/admin/faculty-verification/{{_id}}" method="post">
+          <button>
+          <a class="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >Verify</a>
         </button>
+        </form>
       </div>
     </div>
   {{/each}}
 </div>
 
-<script>
-  const verifyButton = document.getElementById('verifyButton');
-  verifyButton.addEventListener('click', () => { fetch('') })
-</script>
+

@@ -47,12 +47,24 @@ exports.postAddDepartment = async (req,res) => {
 }
 
 exports.getVerifyFacultyPage = async (req,res) => {
-    const pendingFaculty = await Faculty.find({}).lean()
+    const pendingFaculty = await Faculty.find({ isVerified:false }).lean()
     res.render('admin/verify-faculty', {
         admin : true,
         title : "Faculty Verification",
         faculty : pendingFaculty
     })
+}
+
+exports.postVerifyFacultyPage = async (req,res) => {
+    try {
+        const facultyId = req.params.id;
+        await Faculty.findByIdAndUpdate( facultyId , { isVerified : true })
+        res.redirect('/admin/faculty-verification')
+    } catch (error) {
+        res.render('errors/500', {
+            title : "Internal Server Error"
+        })
+    }
 }
 
 exports.deleteAllDepartment =  async (req,res) => {

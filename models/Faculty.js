@@ -23,6 +23,10 @@ const facultySchema = new mongoose.Schema({
     confirmpassword : {
         type : String,
         required : true
+    },
+    isVerified : {
+        type : Boolean,
+        default : false
     }
 })
 
