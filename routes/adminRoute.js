@@ -10,6 +10,7 @@ router.get('/departments', verifyAdminAuth , adminController.getDepartmentsPage)
 router.post('/departments', verifyAdminAuth , adminController.postAddDepartment)
 router.get('/faculty-verification',verifyAdminAuth, adminController.getVerifyFacultyPage)
 router.post('/faculty-verification/:id', verifyAdminAuth, adminController.postVerifyFacultyPage)
+router.get('/all-faculty', verifyAdminAuth, adminController.getAllFaculty);
 router.delete('/departments/delete-all', verifyAdminAuth , adminController.deleteAllDepartment)
 router.get('/logout', verifyAdminAuth , adminController.getLogout)
 

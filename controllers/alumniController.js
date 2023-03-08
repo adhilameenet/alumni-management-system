@@ -13,7 +13,7 @@ const {
 exports.getHomePage = async (req, res) => {
   res.render("alumni/home", {
     title: "Home",
-    user: true,
+    user: req.session.user
   });
 };
 
@@ -98,7 +98,7 @@ exports.getFeedbackPage = async (req, res) => {
   const departments = await Department.find({}).lean();
   res.render("alumni/feedback", {
     title: "Feedback",
-    user: true,
+    user: req.session.user,
     department : departments
   });
 };
@@ -122,7 +122,7 @@ exports.getEventsPage = async (req, res) => {
   res.render("alumni/view-events", {
     title: "Events",
     event: allEvents,
-    user: true,
+    user: req.session.user
   });
 };
 
@@ -133,7 +133,7 @@ exports.getProfilePage = async (req, res) => {
     bloodgroups : generateBloodGroups(),
     department: departments,
     title: "Profile",
-    user: true,
+    user: req.session.user
   });
 };
 
@@ -142,7 +142,7 @@ exports.getAchievementsPage = async (req, res) => {
   res.render("alumni/achievements", {
     title: "Achievements",
     achievement: allAchievements,
-    user: true,
+    user: req.session.user
   });
 };
 
@@ -151,6 +151,6 @@ exports.getDonationsPage = async (req, res) => {
   res.render("alumni/donations", {
     title: "Donations",
     donation: allDonations,
-    user: true,
+    user: req.session.user
   });
 };

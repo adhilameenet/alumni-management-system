@@ -1,22 +1,101 @@
-{{!-- <h1>Alumni Management System</h1><br>
-<hr>
-<br>
-<button><a href="/alumni/login">Alumni</a></button>
-<button><a href="/faculty/login">Faculty</a></button>
-<button><a href="/admin/login">Admin</a></button>
+<header class="text-gray-600 body-font">
+  <div
+    class="flex flex-wrap justify-between p-5 flex-col md:flex-row items-center"
+  >
+    <a
+      class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+        ></path>
+      </svg>
+      <span class="ml-3 text-xl">Alumni Management</span>
+    </a>
 
- --}}
- 
-
+    <button
+      id="dropdownDefaultButton"
+      data-dropdown-toggle="dropdown"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      type="button"
+    >Login
+      <svg
+        class="w-4 h-4 ml-2"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      ><path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        ></path></svg></button>
+    <div
+      id="dropdown"
+      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+    >
+      <ul
+        class="py-2 text-sm text-gray-700 dark:text-gray-200"
+        aria-labelledby="dropdownDefaultButton"
+      >
+        <li>
+          <a
+            href="/alumni/login"
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+          >Alumni</a>
+        </li>
+        <li>
+          <a
+            href="/faculty/login"
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+          >Faculty</a>
+        </li>
+        <li>
+          <a
+            href="/admin/login"
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+          >Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
 <section class="text-gray-600 body-font">
   <div class="mx-auto">
     <div class="lg:w-5/5 mx-auto flex flex-wrap">
-      <img alt="Alumni Picture" class="lg:w-2/2 mx-auto" src="/img/hero.jpg" width="600">
+      <img
+        alt="Alumni Picture"
+        class="lg:w-2/2 mx-auto"
+        src="/img/hero.jpg"
+        width="600"
+      />
       <div class="lg:w-2/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 mx-auto">
-        <h1 class="text-gray-900 text-3xl title-font font-bold mb-2 text-center">Connect, Engage, and Empower Your Alumni Community with <br> Our Advanced Alumni Management System</h1>
-        <p class="leading-relaxed text-center">Welcome to our state-of-the-art alumni management system, designed to help you easily connect, engage, and empower your alumni community. Our system offers a wide range of features that make it easy for you to manage your alumni data, communicate with your alumni, and plan events and fundraising campaigns</p>
+        <h1
+          class="text-gray-900 text-3xl title-font font-bold mb-2 text-center"
+        >Connect, Engage, and Empower Your Alumni Community with
+          <br />
+          Our Advanced Alumni Management System</h1>
+        <p class="leading-relaxed text-center">Welcome to our state-of-the-art
+          alumni management system, designed to help you easily connect, engage,
+          and empower your alumni community. Our system offers a wide range of
+          features that make it easy for you to manage your alumni data,
+          communicate with your alumni, and plan events and fundraising
+          campaigns</p>
         <div class="flex mt-5">
-          <button class="flex-1 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"><a href="/alumni/login">Get Started</a></button>
+          <button
+            class="flex-1 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+          ><a href="/alumni/login">Get Started</a></button>
         </div>
       </div>
     </div>
