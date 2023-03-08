@@ -22,6 +22,7 @@ router.get('/view-achievements', verfyFacultyAuth, facultyController.getViewAchi
 router.get('/add-donations', verfyFacultyAuth , facultyController.getAddDonationsPage)
 router.post('/add-donations', verfyFacultyAuth , facultyController.postAddDonationsPage)
 router.get('/view-donations',verfyFacultyAuth, facultyController.getViewDonations)
+router.get('/view-donations/:id', verfyFacultyAuth, facultyController.getEditDonationPage)
 router.get('/alumni-report',verfyFacultyAuth, facultyController.getAlumniReport)
 router.get('/logout',verfyFacultyAuth, facultyController.getLogout)
 

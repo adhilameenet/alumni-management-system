@@ -303,3 +303,13 @@ exports.getAlumniReport = async (req,res) => {
     alumni
   })
 }
+
+exports.getEditDonationPage = async (req,res) => {
+  const donationId = req.params.id;
+  const donation = await Donation.findOne({_id:donationId}).lean()
+  res.render('faculty/edit-donation', {
+    title : "Edit Donation",
+    faculty : req.session.faculty,
+    donation
+  })
+}
