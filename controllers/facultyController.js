@@ -242,6 +242,7 @@ exports.postDonationsPage = async (req, res) => {
     imageUrl: uploadUrl,
     title: req.body.main,
     description: req.body.description,
+    donationLink : req.body.donationLink
   });
   await newDonation.save();
   res.redirect("/faculty");

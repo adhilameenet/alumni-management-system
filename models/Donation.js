@@ -11,6 +11,10 @@ const donationSchema = new mongoose.Schema({
     description : {
         type : String,
         required : true
+    },
+    donationLink : {
+        type : String,
+        required : true
     }
 })
 

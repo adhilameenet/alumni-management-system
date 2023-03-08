@@ -14,6 +14,7 @@ router.get('/feedback', verifyUserAuth ,alumniController.getFeedbackPage)
 router.post('/feedback', verifyUserAuth ,alumniController.postFeedbackPage)
 router.get('/achievements',verifyUserAuth, alumniController.getAchievementsPage)
 router.get('/profile', verifyUserAuth ,alumniController.getProfilePage)
+router.post('/profile',verifyUserAuth, alumniController.postAlumniProfile)
 router.get('/donations', verifyUserAuth, alumniController.getDonationsPage)
 
 module.exports = router

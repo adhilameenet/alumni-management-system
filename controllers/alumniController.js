@@ -1,3 +1,5 @@
+const { v4 } = require("uuid");
+const path = require("path");
 const User = require("../models/User");
 const Feedback = require("../models/Feedback");
 const Achievement = require("../models/Achievement");
@@ -13,7 +15,7 @@ const {
 exports.getHomePage = async (req, res) => {
   res.render("alumni/home", {
     title: "Home",
-    user: req.session.user
+    user: req.session.user,
   });
 };
 
@@ -45,7 +47,10 @@ exports.postSignupPage = async (req, res) => {
         confirmpassword: req.body.confirmpassword,
       });
       await user.save();
-      req.flash("success", "Registration submitted. Please wait for verification.");
+      req.flash(
+        "success",
+        "Registration submitted. Please wait for verification."
+      );
       res.redirect("/alumni/login");
     } else {
       req.flash("error", "Passwords does not match");
@@ -72,9 +77,9 @@ exports.postLoginPage = async (req, res) => {
       return res.redirect("/alumni/login");
     }
     if (user.password == password) {
-      if(!user.isVerified) {
-        req.flash('error','Not Verified by Admin');
-        return res.redirect('/alumni/login')
+      if (!user.isVerified) {
+        req.flash("error", "Not Verified by Admin");
+        return res.redirect("/alumni/login");
       }
       req.session.user = user;
       req.session.userAuth = true;
@@ -99,7 +104,7 @@ exports.getFeedbackPage = async (req, res) => {
   res.render("alumni/feedback", {
     title: "Feedback",
     user: req.session.user,
-    department : departments
+    department: departments,
   });
 };
 exports.postFeedbackPage = async (req, res) => {
@@ -122,19 +127,61 @@ exports.getEventsPage = async (req, res) => {
   res.render("alumni/view-events", {
     title: "Events",
     event: allEvents,
-    user: req.session.user
+    user: req.session.user,
   });
 };
 
 exports.getProfilePage = async (req, res) => {
-  const departments = await Department.find({}).lean();
+  const userProfile = await User.findOne({ _id: req.session.user._id }).lean();
   res.render("alumni/profile", {
     districts: generateDistricts(),
-    bloodgroups : generateBloodGroups(),
-    department: departments,
+    bloodgroups: generateBloodGroups(),
     title: "Profile",
-    user: req.session.user
+    user: req.session.user,
+    userProfile,
+    error: req.flash("error"),
   });
+};
+
+exports.postAlumniProfile = async (req, res) => {
+  let sampleFile;
+  let uploadPath;
+  if (!req.files || Object.keys(req.files).length == 0) {
+    req.flash("error", "No files were uploaded");
+    return res.redirect("/alumni/profile");
+  }
+  sampleFile = req.files.sampleFile;
+  const uploadUrl = sampleFile.name;
+  uploadPath = path.join(__dirname, "..", "public", "uploads", uploadUrl);
+  sampleFile.mv(uploadPath, function (err) {
+    if (err) {
+      return res.render("errors/500", {
+        title: "Internal Server Error",
+      });
+    }
+  });
+  try {
+    const myProfile = await User.findOne({ _id: req.session.user._id });
+    myProfile.imageUrl = uploadUrl;
+    myProfile.firstname = req.body.firstname;
+    myProfile.lastname = req.body.lastname;
+    myProfile.email = req.body.email;
+    myProfile.phone = req.body.phone;
+    myProfile.whatsapp = req.body.whatsapp;
+    myProfile.bloodgroup = req.body.bloodgroup;
+    myProfile.gender = req.body.gender;
+    myProfile.batch = req.body.batch;
+    myProfile.startyear = req.body.startyear;
+    myProfile.endyear = req.body.endyear;
+    myProfile.district = req.body.district;
+    myProfile.location = req.body.location;
+    await myProfile.save();
+    res.redirect("/alumni");
+  } catch (error) {
+    return res.render("errors/500", {
+      title: "Internal Server Error",
+    });
+  }
 };
 
 exports.getAchievementsPage = async (req, res) => {
@@ -142,7 +189,7 @@ exports.getAchievementsPage = async (req, res) => {
   res.render("alumni/achievements", {
     title: "Achievements",
     achievement: allAchievements,
-    user: req.session.user
+    user: req.session.user,
   });
 };
 
@@ -151,6 +198,6 @@ exports.getDonationsPage = async (req, res) => {
   res.render("alumni/donations", {
     title: "Donations",
     donation: allDonations,
-    user: req.session.user
+    user: req.session.user,
   });
 };
