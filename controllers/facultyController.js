@@ -214,14 +214,14 @@ exports.postAddAchievementPage = async (req, res) => {
   res.redirect("/faculty");
 };
 
-exports.getDonationsPage = (req, res) => {
+exports.getAddDonationsPage = (req, res) => {
   res.render("faculty/add-donations", {
     title: "Add Donations",
     faculty: req.session.faculty,
   });
 };
 
-exports.postDonationsPage = async (req, res) => {
+exports.postAddDonationsPage = async (req, res) => {
   let sampleFile;
   let uploadPath;
   if (!req.files || Object.keys(req.files).length == 0) {
@@ -248,6 +248,34 @@ exports.postDonationsPage = async (req, res) => {
   res.redirect("/faculty");
 };
 
+exports.getViewDonations = async (req,res) => {
+  const donations = await Donation.find({}).lean()
+  res.render('faculty/view-donations', {
+    title : "Donations",
+    faculty : req.session.faculty,
+    donations
+  })
+}
+
+exports.getViewAchievements = async (req,res) => {
+  const achievements = await Achievement.find({}).lean()
+  res.render('faculty/view-achievements', {
+    title : "Achievements",
+    faculty : req.session.faculty,
+    achievements
+  })
+}
+
+exports.getViewEvents = async (req,res) => {
+  const event = await Event.find({}).lean()
+  res.render('faculty/view-events', {
+    title : "Events",
+    faculty : req.session.faculty,
+    event
+  })
+
+}
+
 exports.getAllAlumniPage = async (req, res) => {
   const allAlumni = await User.find({ isVerified: true }).lean();
   res.render("faculty/all-alumni", {
@@ -256,3 +284,22 @@ exports.getAllAlumniPage = async (req, res) => {
     faculty: req.session.faculty,
   });
 };
+
+exports.getSingleAlumniDetails = async (req,res) => {
+  const alumniId = req.params.id;
+  const alumniDetails = await User.findOne({_id:alumniId}).lean()
+  res.render('faculty/alumni-details', {
+    title : alumniDetails.firstname,
+    faculty : req.session.faculty,
+    alumniDetails
+  }) 
+}
+
+exports.getAlumniReport = async (req,res) => {
+  const alumni = await User.find({}).lean()
+  res.render('faculty/alumni-report', {
+    title : "Alumni Report",
+    faculty : req.session.faculty,
+    alumni
+  })
+}

@@ -100,11 +100,11 @@ exports.alumniLogout = (req, res) => {
 };
 
 exports.getFeedbackPage = async (req, res) => {
-  const departments = await Department.find({}).lean();
+  const userDetails = await User.find({_id:req.session.user._id}).lean()
   res.render("alumni/feedback", {
     title: "Feedback",
     user: req.session.user,
-    department: departments,
+    userDetails
   });
 };
 exports.postFeedbackPage = async (req, res) => {
