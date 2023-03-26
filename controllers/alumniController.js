@@ -1,6 +1,7 @@
 const { v4 } = require("uuid");
 const path = require("path");
 const User = require("../models/User");
+const Settings = require('../models/Settings')
 const Feedback = require("../models/Feedback");
 const Achievement = require("../models/Achievement");
 const Donation = require("../models/Donation");
@@ -13,9 +14,17 @@ const {
 } = require("../helpers/helper");
 
 exports.getHomePage = async (req, res) => {
+  const allEvents = await Event.find({}).lean();
+  const allDonations = await Donation.find({}).lean();
+  const allAchievements = await Achievement.find({}).lean();
+  const settings = await Settings.find().lean()
   res.render("alumni/home", {
     title: "Home",
     user: req.session.user,
+    event:allEvents,
+    donation : allDonations,
+    achievement : allAchievements,
+    settings
   });
 };
 
@@ -122,14 +131,14 @@ exports.postFeedbackPage = async (req, res) => {
   }
 };
 
-exports.getEventsPage = async (req, res) => {
-  const allEvents = await Event.find({}).lean();
-  res.render("alumni/view-events", {
-    title: "Events",
-    event: allEvents,
-    user: req.session.user,
-  });
-};
+// exports.getEventsPage = async (req, res) => {
+//   const allEvents = await Event.find({}).lean();
+//   res.render("alumni/view-events", {
+//     title: "Events",
+//     event: allEvents,
+//     user: req.session.user,
+//   });
+// };
 
 exports.getProfilePage = async (req, res) => {
   const userProfile = await User.findOne({ _id: req.session.user._id }).lean();
@@ -184,20 +193,29 @@ exports.postAlumniProfile = async (req, res) => {
   }
 };
 
-exports.getAchievementsPage = async (req, res) => {
-  const allAchievements = await Achievement.find({}).lean();
-  res.render("alumni/achievements", {
-    title: "Achievements",
-    achievement: allAchievements,
-    user: req.session.user,
-  });
-};
+// exports.getAchievementsPage = async (req, res) => {
+//   const allAchievements = await Achievement.find({}).lean();
+//   res.render("alumni/achievements", {
+//     title: "Achievements",
+//     achievement: allAchievements,
+//     user: req.session.user,
+//   });
+// };
 
-exports.getDonationsPage = async (req, res) => {
-  const allDonations = await Donation.find({}).lean();
-  res.render("alumni/donations", {
-    title: "Donations",
-    donation: allDonations,
-    user: req.session.user,
-  });
-};
+// exports.getDonationsPage = async (req, res) => {
+//   const allDonations = await Donation.find({}).lean();
+//   res.render("alumni/donations", {
+//     title: "Donations",
+//     donation: allDonations,
+//     user: req.session.user,
+//   });
+// };
+
+exports.getConnectAlumni = async (req,res) => {
+  const alumni = await User.find({}).lean()
+  res.render('alumni/connect-alumni', {
+    title : "Connect Alumni",
+    user : req.session.user,
+    alumni
+  })
+}

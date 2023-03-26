@@ -11,3 +11,9 @@ body {
 button a {
     color: white;
 }
+
+/* nav active */
+
+nav ul li a.active {
+  border-bottom: 2px solid #f00;
+}

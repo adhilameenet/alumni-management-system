@@ -12,6 +12,8 @@ router.get('/faculty-verification',verifyAdminAuth, adminController.getVerifyFac
 router.post('/faculty-verification/:id', verifyAdminAuth, adminController.postVerifyFacultyPage)
 router.get('/all-faculty', verifyAdminAuth, adminController.getAllFaculty);
 router.delete('/departments/delete-all', verifyAdminAuth , adminController.deleteAllDepartment)
-router.get('/logout', verifyAdminAuth , adminController.getLogout)
+router.get('/settings', verifyAdminAuth, adminController.getSettings);
+router.post('/settings', verifyAdminAuth, adminController.postSettings)
+router.get('/logout', verifyAdminAuth , adminController.getLogout);
 
 module.exports = router

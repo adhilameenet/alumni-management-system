@@ -1,4 +1,5 @@
 const Faculty = require("../models/Faculty");
+const Settings = require('../models/Settings')
 const Department = require("../models/Department");
 
 exports.getHomePage = async (req, res) => {
@@ -88,6 +89,47 @@ exports.deleteAllDepartment = async (req, res) => {
   await Department.deleteMany({});
   res.redirect("/admin/departments");
 };
+
+exports.getSettings = async (req,res) => {
+  const settings = await Settings.findOne({}).lean()
+  res.render('admin/settings', {
+    title : "Settings",
+    admin : req.session.admin,
+    settings
+  })
+}
+
+exports.postSettings = async (req,res) => {
+  console.log(req.body)
+  if(req.body.add) {
+    try {
+      const mySettings = new Settings({
+        name : req.body.name,
+        description : req.body.description
+      });
+      await mySettings.save()
+      res.redirect('/admin/settings')
+    } catch (error) {
+      console.log(error)
+      res.render('errors/500', {
+        title : "Internal Server Error"
+      })
+    } 
+  } else {
+    try {
+      let updateSettings = await Settings.findOne({})
+      updateSettings.name = req.body.name;
+      updateSettings.description = req.body.description;
+      await updateSettings.save();
+      res.redirect('/admin/settings')
+    } catch (error) {
+      console.log(error)
+      res.render('errors/500', {
+        title : "Internal Server Error"
+      })
+    } 
+  }
+}
 
 exports.getLogout = (req, res) => {
   req.session.admin = null;
