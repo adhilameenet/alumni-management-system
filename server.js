@@ -12,12 +12,10 @@ const dbConnection = require('./config/dbConnection')
 const alumniRouter = require('./routes/alumniRoute')
 const facultyRouter = require('./routes/facultyRoute')
 const adminRouter = require('./routes/adminRoute')
-// Environment Variable
 dotenv.config()
 
 const app = express();
 
-// Database Connection
 dbConnection.dbConnect()
 
 app.use(methodOverride('_method'))
@@ -33,7 +31,6 @@ app.use(cookieParser())
 app.use(flash())
 app.use(fileUpload())
 
-// View Engine Setup
 app.engine('hbs', engine({
     extname:'hbs',
     defaultLayout : 'main',
@@ -43,7 +40,6 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
 
-// Parse Incoming Data
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -52,15 +48,13 @@ app.get('/', (req,res) => {
     res.render('get-started', { title : "Get Started"})
 })
 
-// Routes
 app.use('/alumni', alumniRouter)
 app.use('/faculty', facultyRouter)
 app.use('/admin', adminRouter)
 
-// Catch 404
 app.use((req,res,next) => {
     res.render('errors/404', { title : "Page Not Found"})
 })
-// Port
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
