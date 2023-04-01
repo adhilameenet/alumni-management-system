@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
   bloodgroup: {
     type: String,
   },
+  isDonor : {
+    type : Boolean,
+    default : false
+  },
   batch: {
     type: String,
     required: true,

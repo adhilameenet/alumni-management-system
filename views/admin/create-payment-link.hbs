@@ -1,0 +1,63 @@
+<div class="pl-40 pr-40">
+  <h3
+    class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white mb-3"
+  >
+    Create Payment Link
+  </h3><hr class="mb-3">
+  <form action="/admin/create-payment-link" method="post" autocomplete="off">
+   <div class="mb-6">
+      <label
+        for="name"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        required
+      />
+    </div>
+    <div class="mb-6">
+      <label
+        for="amount"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Amount</label>
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        required
+      />
+    </div>
+    <div class="mb-2">
+      <label for="currency"
+     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Currency</label>
+      <select name="currency" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected value="inr">INR</option>
+        <option value="usd">USD</option>
+        <option value="eur">EUR</option>
+        <option value="gbp">GBP</option>
+      </select><br>
+    </div>
+    <div class="mb-2">
+      <label
+        for="description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Description</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
+    </div>
+    <div class="mt-6">
+    <button
+    type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >Create Payment Link</button>
+    </div>
+  </form>
+</div>

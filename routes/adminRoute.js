@@ -15,6 +15,15 @@ router.get('/all-alumni', verifyAdminAuth, adminController.getAllAlumni)
 router.delete('/departments/delete-all', verifyAdminAuth , adminController.deleteAllDepartment)
 router.get('/settings', verifyAdminAuth, adminController.getSettings);
 router.post('/settings', verifyAdminAuth, adminController.postSettings)
+router.get('/add-donations', verifyAdminAuth , adminController.getAddDonationsPage)
+router.post('/add-donations', verifyAdminAuth , adminController.postAddDonationsPage)
+router.get('/view-donations',verifyAdminAuth, adminController.getViewDonations)
+router.get('/view-donations/:id', verifyAdminAuth, adminController.getEditDonationPage)
+router.post('/delete-donation/:id', verifyAdminAuth, adminController.deleteOneDonation)
+router.get('/donation-reports', verifyAdminAuth, adminController.getRecentPayments)
+router.get('/blood-donors', verifyAdminAuth, adminController.getBloodDonors)
+// router.get('/create-payment-link', verifyAdminAuth, adminController.getCreatePaymentLink);
+// router.post('/create-payment-link', verifyAdminAuth, adminController.postCreatePaymentLink);
 router.get('/logout', verifyAdminAuth , adminController.getLogout);
 
 module.exports = router

@@ -82,11 +82,19 @@
             scope="row"
             class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
           >
-            <img
+           {{#if imageUrl}}
+             <img
               class="w-10 h-10 object-cover rounded-full"
               src="/uploads/{{imageUrl}}"
               alt="Avatar"
             />
+           {{else}}
+             <img
+              class="w-10 h-10 object-cover rounded-full"
+              src="/img/user_avatar.png"
+              alt="Default Profile"
+            />
+           {{/if}}
             <div class="pl-3">
               <div class="text-base font-semibold">{{firstname}}
                 {{lastname}}</div>

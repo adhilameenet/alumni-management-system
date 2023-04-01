@@ -44,6 +44,13 @@ exports.postSignupPage = async (req, res) => {
       req.flash("error", "User already exist");
       res.redirect("/alumni/signup");
     }
+    let isChecked;
+    if(req.body.isdonor == 'on') {
+      isChecked = true;
+    } else {
+      isChecked = false;
+    }
+    console.log(isChecked)
     if (req.body.password == req.body.confirmpassword) {
       const user = new User({
         firstname: req.body.firstname,
@@ -52,7 +59,8 @@ exports.postSignupPage = async (req, res) => {
         batch: req.body.batch,
         startyear: req.body.startyear,
         endyear: req.body.endyear,
-        password: req.body.password,
+        isDonor: isChecked,
+        password: req.body.password,  
         confirmpassword: req.body.confirmpassword,
       });
       await user.save();
@@ -66,6 +74,7 @@ exports.postSignupPage = async (req, res) => {
       res.redirect("/alumni/signup");
     }
   } catch (error) {
+    console.log(error)
     res.render("errors/500", { title: "Internal Server Error" });
   }
 };

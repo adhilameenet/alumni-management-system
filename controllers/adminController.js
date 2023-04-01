@@ -1,6 +1,8 @@
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const Faculty = require("../models/Faculty");
 const Settings = require('../models/Settings')
 const Department = require("../models/Department");
+const Donation = require('../models/Donation')
 const User = require("../models/User");
 
 exports.getHomePage = async (req, res) => {
@@ -10,7 +12,6 @@ exports.getHomePage = async (req, res) => {
   const noOfDepartments = await Department.find({}).count();
   res.render("admin/home", {
     title: "Home",
-    success: req.flash("success"),
     admin: req.session.admin,
     noOfVerifiedFaculty,
     noOfUnverifiedFaculty,
@@ -31,7 +32,6 @@ exports.postLoginPage = (req, res) => {
   if (email == adminEmail && password == adminPassword) {
     req.session.admin = adminEmail;
     req.session.adminAuth = true;
-    req.flash("success", "Login Success!");
     res.redirect("/admin");
   } else {
     req.flash("error", "Invalid Email or Password");
@@ -154,3 +154,130 @@ exports.getLogout = (req, res) => {
   req.session.adminAuth = false;
   res.redirect("/admin/login");
 };
+
+
+exports.getRecentPayments = async (req,res) => {
+  try {
+    const payments = await stripe.charges.list({
+      limit: 20,
+      status: 'succeeded',
+    });
+    const data = payments.data
+    res.render('admin/donations', {
+      title : "Recent Payments",
+      data,
+      admin : req.session.admin
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Failed to fetch payments' });
+  }
+}
+
+exports.getAddDonationsPage = (req, res) => {
+  res.render("admin/add-donations", {
+    title: "Add Donations",
+    admin: req.session.admin,
+  });
+};
+
+exports.getEditDonationPage = async (req,res) => {
+  const donationId = req.params.id;
+  const donation = await Donation.findOne({_id:donationId}).lean()
+  res.render('admin/edit-donation', {
+    title : "Edit Donation",
+    faculty : req.session.admin,
+    donation
+  })
+}
+
+exports.postAddDonationsPage = async (req, res) => {
+  let sampleFile;
+  let uploadPath;
+  if (!req.files || Object.keys(req.files).length == 0) {
+    return res.status(400).json({ message: "No file were uploaded" });
+  }
+  sampleFile = req.files.sampleFile;
+  const imageExtension = sampleFile.name.split(".")[1];
+  const uploadUrl = v4() + `.${imageExtension}`;
+  uploadPath = path.join(__dirname, "..", "public", "uploads", uploadUrl);
+  console.log(uploadPath);
+  sampleFile.mv(uploadPath, function (err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+  });
+
+  const newDonation = new Donation({
+    imageUrl: uploadUrl,
+    title: req.body.main,
+    description: req.body.description,
+    donationLink : req.body.donationLink
+  });
+  await newDonation.save();
+  res.redirect("/admin");
+};
+
+exports.getViewDonations = async (req,res) => {
+  const donations = await Donation.find({}).lean()
+  res.render('admin/view-donations', {
+    title : "Donations",
+    admin : req.session.admin,
+    donations
+  })
+}
+
+exports.deleteOneDonation = async (req,res) => {
+  const donationId = req.params.id;
+  await Donation.findByIdAndRemove({_id:donationId});
+  res.redirect('/admin/view-donations')
+}
+
+// exports.getCreatePaymentLink = async (req,res) => {
+//   res.render('admin/create-payment-link', {
+//     title:"Create Payment Link",
+//     admin : req.session.admin
+//   })
+// }
+// exports.postCreatePaymentLink = async (req,res) => {
+//   try {
+//     const {name,description,amount} = req.body;
+//     const session = await stripe.checkout.sessions.create({
+//       line_items: [{
+//         name: 'T-shirt',
+//         description: 'Comfortable cotton t-shirt',
+//         amount: 2000,
+//         currency: 'inr',
+//         price_data: {
+//           currency: 'inr',
+//           unit_amount: 2000,
+//           product_data: {
+//             name: 'T-shirt',
+//             description: 'Comfortable cotton t-shirt'
+//           },
+//         },
+//         quantity: 1,
+//       }],
+//       mode:'payment',
+//       success_url:'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+//       cancel_url: 'https://example.com/cancel'
+//     })
+//     res.json({url : session})
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).render('errors/500', {
+//       title: "Internal Server Error"
+//     })
+//   }
+// }
+
+exports.getBloodDonors = async (req,res) => {
+  const donors =  await User.find({isDonor:true, isVerified:true}).lean();
+  const donorsCount =  await User.find({isDonor:true, isVerified:true}).count()
+  res.render('admin/blood-donor', {
+    title:"Blood Donors",
+    donors,
+    donorsCount,
+    admin : req.session.admin
+  })
+}

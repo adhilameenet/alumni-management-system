@@ -18,7 +18,6 @@ exports.getHomePage = async (req, res) => {
   const noOfAlumniFeedbacks = await Feedback.find({}).count();
   res.render("faculty/home", {
     title: "Home",
-    success: req.flash("success"),
     faculty: req.session.faculty,
     noOfVerifiedAlumni,
     noOfUnverifiedAlumni,
@@ -92,7 +91,6 @@ exports.postLoginPage = async (req, res) => {
       }
       req.session.faculty = faculty;
       req.session.facultyAuth = true;
-      req.flash("success", "Login Success!");
       res.redirect("/faculty");
     } else {
       req.flash("error", "Invalid Password");
@@ -214,48 +212,7 @@ exports.postAddAchievementPage = async (req, res) => {
   res.redirect("/faculty");
 };
 
-exports.getAddDonationsPage = (req, res) => {
-  res.render("faculty/add-donations", {
-    title: "Add Donations",
-    faculty: req.session.faculty,
-  });
-};
 
-exports.postAddDonationsPage = async (req, res) => {
-  let sampleFile;
-  let uploadPath;
-  if (!req.files || Object.keys(req.files).length == 0) {
-    return res.status(400).json({ message: "No file were uploaded" });
-  }
-  sampleFile = req.files.sampleFile;
-  const imageExtension = sampleFile.name.split(".")[1];
-  const uploadUrl = v4() + `.${imageExtension}`;
-  uploadPath = path.join(__dirname, "..", "public", "uploads", uploadUrl);
-  console.log(uploadPath);
-  sampleFile.mv(uploadPath, function (err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-  });
-
-  const newDonation = new Donation({
-    imageUrl: uploadUrl,
-    title: req.body.main,
-    description: req.body.description,
-    donationLink : req.body.donationLink
-  });
-  await newDonation.save();
-  res.redirect("/faculty");
-};
-
-exports.getViewDonations = async (req,res) => {
-  const donations = await Donation.find({}).lean()
-  res.render('faculty/view-donations', {
-    title : "Donations",
-    faculty : req.session.faculty,
-    donations
-  })
-}
 
 exports.getViewAchievements = async (req,res) => {
   const achievements = await Achievement.find({}).lean()
@@ -309,16 +266,6 @@ exports.getAlumniReport = async (req,res) => {
   })
 }
 
-exports.getEditDonationPage = async (req,res) => {
-  const donationId = req.params.id;
-  const donation = await Donation.findOne({_id:donationId}).lean()
-  res.render('faculty/edit-donation', {
-    title : "Edit Donation",
-    faculty : req.session.faculty,
-    donation
-  })
-}
-
 exports.deleteOneEvent = async (req,res) => {
   const eventId = req.params.id;
   await Event.findOneAndRemove({_id:eventId});
@@ -331,8 +278,3 @@ exports.deleteOneAchievement = async (req,res) => {
   res.redirect('/faculty/view-achievements');
 }
 
-exports.deleteOneDonation = async (req,res) => {
-  const donationId = req.params.id;
-  await Donation.findByIdAndRemove({_id:donationId});
-  res.redirect('/faculty/view-donations')
-}

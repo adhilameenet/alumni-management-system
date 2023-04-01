@@ -1,0 +1,82 @@
+<div class="relative overflow-x-auto">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-3">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3 rounded-l-lg">
+          Information
+        </th>
+        <th scope="col" class="px-6 py-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-white dark:bg-gray-800 border-b-4">
+        <th
+          scope="row"
+          class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          Total Number of Blood Donors in the System
+        </th>
+        <td class="py-4">
+          <b>{{donorsCount}}</b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Name
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Blood Group
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Phone
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Location
+        </th>
+        <th scope="col" class="px-6 py-3">
+          District
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each donors}}
+        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+
+          <th scope="row" class="px-6 py-4 whitespace-nowrap dark:text-white">
+            {{firstname}}
+            {{lastname}}
+          </th>
+          <td class="px-6 py-4 font-bold text-red-400">
+            {{bloodgroup}}
+          </td>
+          <td class="px-6 py-4">
+            {{phone}}
+          </td>
+          <td class="px-6 py-4">
+            {{location}}
+          </td>
+          <td class="px-6 py-4">
+            {{district}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+   <div class="ml-3 mb-3">
+    <button
+      type="button"
+      class="mt-6 text-white bg-gray-600 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm font-semibold px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+    >Export as PDF</button>
+  </div>
+</div>

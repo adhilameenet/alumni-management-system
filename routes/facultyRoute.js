@@ -21,11 +21,6 @@ router.get('/add-achievements', verfyFacultyAuth, facultyController.getAddAchiev
 router.post('/add-achievements', verfyFacultyAuth , facultyController.postAddAchievementPage)
 router.get('/view-achievements', verfyFacultyAuth, facultyController.getViewAchievements)
 router.post('/delete-achievement/:id', verfyFacultyAuth, facultyController.deleteOneAchievement)
-router.get('/add-donations', verfyFacultyAuth , facultyController.getAddDonationsPage)
-router.post('/add-donations', verfyFacultyAuth , facultyController.postAddDonationsPage)
-router.get('/view-donations',verfyFacultyAuth, facultyController.getViewDonations)
-router.get('/view-donations/:id', verfyFacultyAuth, facultyController.getEditDonationPage)
-router.post('/delete-donation/:id', verfyFacultyAuth, facultyController.deleteOneDonation)
 router.get('/alumni-report',verfyFacultyAuth, facultyController.getAlumniReport)
 router.get('/logout',verfyFacultyAuth, facultyController.getLogout)
 
