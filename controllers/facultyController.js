@@ -268,16 +268,19 @@ exports.getViewAchievements = async (req,res) => {
 
 exports.getViewEvents = async (req,res) => {
   const event = await Event.find({}).lean()
+  const eventCount = await Event.find().count();
   res.render('faculty/view-events', {
     title : "Events",
     faculty : req.session.faculty,
-    event
+    event,
+    eventCount
   })
 
 }
 
 exports.getAllAlumniPage = async (req, res) => {
-  const allAlumni = await User.find({ isVerified: true }).lean();
+  console.log(req.session)
+  const allAlumni = await User.find({ isVerified: true , batch: req.session.faculty.department }).lean();
   res.render("faculty/all-alumni", {
     title: "All Alumni",
     alumni: allAlumni,
@@ -296,11 +299,13 @@ exports.getSingleAlumniDetails = async (req,res) => {
 }
 
 exports.getAlumniReport = async (req,res) => {
-  const alumni = await User.find({}).lean()
+  const alumni = await User.find({isVerified:true, batch:req.session.faculty.department}).lean()
+  const alumniCount = await User.find({isVerified:true, batch:req.session.faculty.department}).count()
   res.render('faculty/alumni-report', {
     title : "Alumni Report",
     faculty : req.session.faculty,
-    alumni
+    alumni,
+    alumniCount
   })
 }
 
@@ -312,4 +317,22 @@ exports.getEditDonationPage = async (req,res) => {
     faculty : req.session.faculty,
     donation
   })
+}
+
+exports.deleteOneEvent = async (req,res) => {
+  const eventId = req.params.id;
+  await Event.findOneAndRemove({_id:eventId});
+  res.redirect('/faculty/view-events')
+}
+
+exports.deleteOneAchievement = async (req,res) => {
+  const achievementId = req.params.id;
+  await Achievement.findOneAndRemove({_id:achievementId});
+  res.redirect('/faculty/view-achievements');
+}
+
+exports.deleteOneDonation = async (req,res) => {
+  const donationId = req.params.id;
+  await Donation.findByIdAndRemove({_id:donationId});
+  res.redirect('/faculty/view-donations')
 }

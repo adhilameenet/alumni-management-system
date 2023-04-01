@@ -1,5 +1,6 @@
 <style>
     input[type="search"] {
+      
         padding: 3px 10px;
         margin-left: 10px;
         width: 225px;
@@ -18,12 +19,46 @@
     #myTable_paginate {
         display: none;
     }
+    
 </style>
+
+
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 rounded-l-lg">
+                    Departmental Information - {{faculty.department}}
+                </th>
+                <th scope="col" class="px-6 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white dark:bg-gray-800 border-b-4">
+                <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    No of Registered Alumni
+                </th>
+                <td class="py-4">
+                    <b>{{alumniCount}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
 <div class="relative p-5 overflow-x-auto shadow-md sm:rounded-lg">
+ 
+
+
   <table
     id="myTable"
     class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
   >
+  
     <thead
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
@@ -82,11 +117,19 @@
             scope="row"
             class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
           >
-            <img
-              class="w-10 h-10 object-cover rounded-full"
-              src="/uploads/{{imageUrl}}"
-              alt="Avatar"
-            />
+            {{#if imageUrl}}
+              <img
+                class="w-10 h-10 object-cover rounded-full"
+                src="/uploads/{{imageUrl}}"
+                alt="Avatar"
+              />
+            {{else}}
+             <img
+                class="w-10 h-10 object-cover rounded-full"
+                src="/img/user_avatar.png"
+                alt="Default Profile"
+              />
+            {{/if}}
             <div class="pl-3">
               <div class="text-base font-semibold">{{firstname}}
                 {{lastname}}</div>

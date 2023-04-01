@@ -4,6 +4,15 @@ const settingSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    facebook : {
+        type : String
+    },
+    instagram : {
+        type : String
+    },
+    twitter : {
+        type : String
+    },
     description : {
         type : String,
         required : true

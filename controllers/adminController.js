@@ -1,12 +1,12 @@
 const Faculty = require("../models/Faculty");
 const Settings = require('../models/Settings')
 const Department = require("../models/Department");
+const User = require("../models/User");
 
 exports.getHomePage = async (req, res) => {
   const noOfVerifiedFaculty = await Faculty.find({ isVerified: true }).count();
-  const noOfUnverifiedFaculty = await Faculty.find({
-    isVerified: false,
-  }).count();
+  const noOfUnverifiedFaculty = await Faculty.find({isVerified: false}).count();
+  const noOfVerifiedAlumni = await User.find({isVerified:true}).count();
   const noOfDepartments = await Department.find({}).count();
   res.render("admin/home", {
     title: "Home",
@@ -14,6 +14,7 @@ exports.getHomePage = async (req, res) => {
     admin: req.session.admin,
     noOfVerifiedFaculty,
     noOfUnverifiedFaculty,
+    noOfVerifiedAlumni,
     noOfDepartments,
   });
 };
@@ -85,6 +86,17 @@ exports.getAllFaculty = async (req, res) => {
   });
 };
 
+exports.getAllAlumni = async (req,res) => {
+  const alumni = await User.find({ isVerified:true }).lean();
+  const alumniCount = await User.find({ isVerified:true }).count()
+  res.render('admin/all-alumni', {
+    title : "All Alumni",
+    alumni,
+    alumniCount,
+    admin : req.session.admin
+  })
+}
+
 exports.deleteAllDepartment = async (req, res) => {
   await Department.deleteMany({});
   res.redirect("/admin/departments");
@@ -105,6 +117,9 @@ exports.postSettings = async (req,res) => {
     try {
       const mySettings = new Settings({
         name : req.body.name,
+        facebook : req.body.facebook,
+        instagram : req.body.instagram,
+        twitter : req.body.twitter,
         description : req.body.description
       });
       await mySettings.save()
@@ -120,6 +135,9 @@ exports.postSettings = async (req,res) => {
       let updateSettings = await Settings.findOne({})
       updateSettings.name = req.body.name;
       updateSettings.description = req.body.description;
+      updateSettings.facebook = req.body.facebook;
+      updateSettings.instagram = req.body.instagram;
+      updateSettings.twitter = req.body.twitter;
       await updateSettings.save();
       res.redirect('/admin/settings')
     } catch (error) {

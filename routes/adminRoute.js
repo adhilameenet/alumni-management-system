@@ -11,6 +11,7 @@ router.post('/departments', verifyAdminAuth , adminController.postAddDepartment)
 router.get('/faculty-verification',verifyAdminAuth, adminController.getVerifyFacultyPage)
 router.post('/faculty-verification/:id', verifyAdminAuth, adminController.postVerifyFacultyPage)
 router.get('/all-faculty', verifyAdminAuth, adminController.getAllFaculty);
+router.get('/all-alumni', verifyAdminAuth, adminController.getAllAlumni)
 router.delete('/departments/delete-all', verifyAdminAuth , adminController.deleteAllDepartment)
 router.get('/settings', verifyAdminAuth, adminController.getSettings);
 router.post('/settings', verifyAdminAuth, adminController.postSettings)

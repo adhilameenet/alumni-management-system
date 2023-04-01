@@ -131,14 +131,6 @@ exports.postFeedbackPage = async (req, res) => {
   }
 };
 
-// exports.getEventsPage = async (req, res) => {
-//   const allEvents = await Event.find({}).lean();
-//   res.render("alumni/view-events", {
-//     title: "Events",
-//     event: allEvents,
-//     user: req.session.user,
-//   });
-// };
 
 exports.getProfilePage = async (req, res) => {
   const userProfile = await User.findOne({ _id: req.session.user._id }).lean();
@@ -192,24 +184,6 @@ exports.postAlumniProfile = async (req, res) => {
     });
   }
 };
-
-// exports.getAchievementsPage = async (req, res) => {
-//   const allAchievements = await Achievement.find({}).lean();
-//   res.render("alumni/achievements", {
-//     title: "Achievements",
-//     achievement: allAchievements,
-//     user: req.session.user,
-//   });
-// };
-
-// exports.getDonationsPage = async (req, res) => {
-//   const allDonations = await Donation.find({}).lean();
-//   res.render("alumni/donations", {
-//     title: "Donations",
-//     donation: allDonations,
-//     user: req.session.user,
-//   });
-// };
 
 exports.getConnectAlumni = async (req,res) => {
   const alumni = await User.find({}).lean()
