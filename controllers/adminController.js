@@ -1,4 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+// const fs = require('fs');
+// const path = require('path');
+// const pdf = require('pdf-creator-node');
 const Faculty = require("../models/Faculty");
 const Settings = require('../models/Settings')
 const Department = require("../models/Department");
@@ -79,10 +82,12 @@ exports.postVerifyFacultyPage = async (req, res) => {
 
 exports.getAllFaculty = async (req, res) => {
   const faculties = await Faculty.find({ isVerified: true }).lean();
+  const facultyCount = await Faculty.find({ isVerified: true }).count();
   res.render("admin/all-faculty", {
     title: "All Faculty",
     faculty: faculties,
     admin: req.session.admin,
+    facultyCount
   });
 };
 
@@ -181,15 +186,7 @@ exports.getAddDonationsPage = (req, res) => {
   });
 };
 
-exports.getEditDonationPage = async (req,res) => {
-  const donationId = req.params.id;
-  const donation = await Donation.findOne({_id:donationId}).lean()
-  res.render('admin/edit-donation', {
-    title : "Edit Donation",
-    faculty : req.session.admin,
-    donation
-  })
-}
+
 
 exports.postAddDonationsPage = async (req, res) => {
   let sampleFile;
@@ -219,11 +216,13 @@ exports.postAddDonationsPage = async (req, res) => {
 };
 
 exports.getViewDonations = async (req,res) => {
-  const donations = await Donation.find({}).lean()
+  const donations = await Donation.find({}).lean();
+  const donationCount = await Donation.find({}).count();
   res.render('admin/view-donations', {
     title : "Donations",
     admin : req.session.admin,
-    donations
+    donations,
+    donationCount 
   })
 }
 
@@ -280,4 +279,90 @@ exports.getBloodDonors = async (req,res) => {
     donorsCount,
     admin : req.session.admin
   })
+}
+
+// exports.generateBloodDonorsPDF = async(req,res,next) => {
+  // const donors =  await User.find({isDonor:true, isVerified:true});
+  // const html = fs.readFileSync(path.join(__dirname + '../../views/admin/blood-donor.hbs'), 'utf-8');
+  // const filename = 'blood_donors' + '.pdf';
+  // let array = [];
+  // console.log(donors)
+  // donors.forEach(d => {
+  //   const prod = {
+  //     name : d.firstname,
+  //     bloodgroup : d.bloodgroup,
+  //     phone : d.phone,
+  //     location : d.location,
+  //     district : d.district
+  //   }
+  //   array.push(prod);
+  // });
+  // const options = {
+  //   formate: 'A4',
+  //   orientation: 'portrait',
+  //   border: '2mm',
+  //   header: {
+  //       height: '15mm',
+  //       contents: '<h4 style=" color: red;font-size:20;font-weight:800;text-align:center;">Blood Donors</h4>'
+  //   },
+  //   childProcessOptions: {
+  //     env: {
+  //       OPENSSL_CONF: '/dev/null',
+  //     },
+  //   }
+  // }
+  // const document = {
+  //   html : html,
+  //   data : {
+  //     products : array
+  //   },
+  //   path:'../public/' + filename  
+  // }
+  // pdf.create(document,options).then(res => {
+  //   console.log(res)
+  // }).catch(err => {
+  //   console.log(err)
+  // })
+// }
+
+// exports.generateBloodDonorsPDF = async (req,res) => {
+//   doc.text('Hello World', 10, 10)
+//   doc.save('hello.pdf')
+//   console.log('okk!!')
+// } 
+
+
+exports.getEditDonationPage = async (req,res) => {
+  const donationId = req.params.id;
+  const donation = await Donation.findOne({_id:donationId}).lean()
+  res.render('admin/edit-donation', {
+    title : "Edit Donation",
+    faculty : req.session.admin,
+    donation
+  })
+}
+exports.postEditDonationPage = async (req,res) => {
+  try {
+    const donationId = req.params.id;
+    const myDonation = await Donation.findOne({ _id:donationId });
+    myDonation.title = req.body.main;
+    myDonation.description = req.body.description;
+    myDonation.donationLink = req.body.donationLink;
+    await myDonation.save();
+    res.redirect("/admin/view-donations");
+  } catch (error) {
+    return res.render("errors/500", {
+      title: "Internal Server Error",
+    });
+  }
+}
+
+exports.getSingleAlumniDetails = async (req,res) => {
+  const alumniId = req.params.id;
+  const alumniDetails = await User.findOne({_id:alumniId}).lean()
+  res.render('admin/alumni-details', {
+    title : alumniDetails.firstname,
+    admin : req.session.admin,
+    alumniDetails
+  }) 
 }

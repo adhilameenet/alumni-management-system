@@ -26,7 +26,10 @@
   </table>
 </div>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6">
+  <table
+    id="my-table"
+    class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6"
+  >
     <thead
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
@@ -53,7 +56,10 @@
       {{#each donors}}
         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 
-          <th scope="row" class="px-6 py-4 whitespace-nowrap dark:text-white">
+          <th
+            scope="row"
+            class="px-6 py-4 whitespace-nowrap dark:text-white"
+          >
             {{firstname}}
             {{lastname}}
           </th>
@@ -73,10 +79,12 @@
       {{/each}}
     </tbody>
   </table>
-   <div class="ml-3 mb-3">
-    <button
-      type="button"
-      class="mt-6 text-white bg-gray-600 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm font-semibold px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-    >Export as PDF</button>
+  <div class="ml-3 mb-3">
+    <form action="/admin/generate-blood-donors-pdf">
+      <button
+        type="submit"
+        class="mt-6 text-white bg-gray-600 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm font-semibold px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+      >Export as PDF</button>
+    </form>
   </div>
 </div>

@@ -16,10 +16,14 @@ router.get('/add-events',verfyFacultyAuth, facultyController.getAddEventPage)
 router.post('/add-events',verfyFacultyAuth, facultyController.postAddEventPage)
 router.get('/view-events', verfyFacultyAuth, facultyController.getViewEvents)
 router.post('/delete-event/:id', verfyFacultyAuth, facultyController.deleteOneEvent)
+router.get('/edit-event/:id', verfyFacultyAuth, facultyController.getEditEventPage);
+router.post('/edit-event/:id',verfyFacultyAuth, facultyController.postEditEvent)
 router.get('/alumni-feedback',verfyFacultyAuth, facultyController.getAllFeedbackPage)
 router.get('/add-achievements', verfyFacultyAuth, facultyController.getAddAchievementsPage)
 router.post('/add-achievements', verfyFacultyAuth , facultyController.postAddAchievementPage)
 router.get('/view-achievements', verfyFacultyAuth, facultyController.getViewAchievements)
+router.get('/edit-achievement/:id', verfyFacultyAuth, facultyController.getEditAchievement);
+router.post('/edit-achievement/:id', verfyFacultyAuth, facultyController.postEditAchievement);
 router.post('/delete-achievement/:id', verfyFacultyAuth, facultyController.deleteOneAchievement)
 router.get('/alumni-report',verfyFacultyAuth, facultyController.getAlumniReport)
 router.get('/logout',verfyFacultyAuth, facultyController.getLogout)

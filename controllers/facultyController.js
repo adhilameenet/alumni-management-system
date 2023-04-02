@@ -10,12 +10,11 @@ const Donation = require("../models/Donation");
 const Department = require("../models/Department");
 
 exports.getHomePage = async (req, res) => {
-  const noOfVerifiedAlumni = await User.find({ isVerified: true }).count();
-  const noOfUnverifiedAlumni = await User.find({ isVerified: false }).count();
+  const noOfVerifiedAlumni = await User.find({ isVerified: true, batch:req.session.faculty.department }).count();
+  const noOfUnverifiedAlumni = await User.find({ isVerified: false, batch:req.session.faculty.department }).count();
   const noOfEvents = await Event.find({}).count();
-  const noOfAchievements = await Achievement.find({}).count();
-  const noOfDonations = await Donation.find({}).count();
-  const noOfAlumniFeedbacks = await Feedback.find({}).count();
+  const noOfAchievements = await Achievement.find({batch:req.session.faculty.department}).count();
+  const noOfAlumniFeedbacks = await Feedback.find({batch:req.session.faculty.department}).count();
   res.render("faculty/home", {
     title: "Home",
     faculty: req.session.faculty,
@@ -23,8 +22,7 @@ exports.getHomePage = async (req, res) => {
     noOfUnverifiedAlumni,
     noOfEvents,
     noOfAchievements,
-    noOfDonations,
-    noOfAlumniFeedbacks,
+    noOfAlumniFeedbacks
   });
 };
 exports.getSignupPage = async (req, res) => {
@@ -101,7 +99,7 @@ exports.postLoginPage = async (req, res) => {
   }
 };
 exports.getVerifyAlumniPage = async (req, res) => {
-  const pendingAlumni = await User.find({ isVerified: false }).lean();
+  const pendingAlumni = await User.find({ isVerified: false, batch:req.session.faculty.department}).lean();
   res.render("faculty/verify-alumni", {
     title: "Verify Alumni",
     faculty: req.session.faculty,
@@ -166,11 +164,13 @@ exports.postAddEventPage = async (req, res) => {
 };
 
 exports.getAllFeedbackPage = async (req, res) => {
-  const alumniFeedback = await Feedback.find().sort({ createdAt: -1 }).lean();
+  const alumniFeedback = await Feedback.find({batch:req.session.faculty.department}).sort({ createdAt: -1 }).lean();
+  const feedbackCount = await Feedback.find({batch: req.session.faculty.department}).count();
   res.render("faculty/alumni-feedback", {
     title: "Feedback",
     faculty: req.session.faculty,
     feedback: alumniFeedback,
+    feedbackCount
   });
 };
 exports.getAddAchievementsPage = async (req, res) => {
@@ -212,14 +212,14 @@ exports.postAddAchievementPage = async (req, res) => {
   res.redirect("/faculty");
 };
 
-
-
 exports.getViewAchievements = async (req,res) => {
   const achievements = await Achievement.find({}).lean()
+  const achievementCount = await Achievement.find({}).count()
   res.render('faculty/view-achievements', {
     title : "Achievements",
     faculty : req.session.faculty,
-    achievements
+    achievements,
+    achievementCount
   })
 }
 
@@ -232,16 +232,17 @@ exports.getViewEvents = async (req,res) => {
     event,
     eventCount
   })
-
 }
 
 exports.getAllAlumniPage = async (req, res) => {
   console.log(req.session)
   const allAlumni = await User.find({ isVerified: true , batch: req.session.faculty.department }).lean();
+  const alumniCount = await User.find({ isVerified: true , batch: req.session.faculty.department }).count();
   res.render("faculty/all-alumni", {
     title: "All Alumni",
     alumni: allAlumni,
     faculty: req.session.faculty,
+    alumniCount
   });
 };
 
@@ -278,3 +279,57 @@ exports.deleteOneAchievement = async (req,res) => {
   res.redirect('/faculty/view-achievements');
 }
 
+exports.getEditEventPage = async (req,res) => {
+  const eventId = req.params.id;
+  const editEvent = await Event.findOne({_id:eventId}).lean();
+  res.render('faculty/edit-event', {
+    title:"Edit Event",
+    faculty:req.session.faculty,
+    editEvent
+  })
+}
+
+exports.postEditEvent = async (req,res) => {
+  try {
+    const eventId = req.params.id;
+    const myEvent = await Event.findOne({ _id: eventId });
+    myEvent.date = req.body.date;
+    myEvent.mainHeading = req.body.main;
+    myEvent.subHeading = req.body.sub;
+    myEvent.description = req.body.description;
+    await myEvent.save();
+    res.redirect("/faculty/view-events");
+  } catch (error) {
+    return res.render("errors/500", {
+      title: "Internal Server Error",
+    });
+  }
+}
+
+exports.getEditAchievement = async (req,res) => {
+  const achievementId = req.params.id;
+  const editAchievement = await Achievement.findOne({_id:achievementId}).lean()
+  res.render('faculty/edit-achievement', {
+    title:"Edit Achievment",
+    faculty : req.session.faculty,
+    editAchievement
+  })
+}
+
+exports.postEditAchievement = async (req,res) => {
+  try {
+    const achievementId = req.params.id;
+    const myAchievement = await Achievement.findOne({_id:achievementId});
+    myAchievement.name = req.body.name;
+    myAchievement.batch = req.body.batch;
+    myAchievement.startyear = req.body.startyear;
+    myAchievement.endyear = req.body.endyear;
+    myAchievement.description = req.body.description;
+    await myAchievement.save();
+    res.redirect("/faculty/view-achievements");
+  } catch (error) {
+    return res.render("errors/500", {
+      title: "Internal Server Error",
+    });
+  }
+}

@@ -48,13 +48,16 @@
           Year of Study
         </th>
         <th scope="col" class="px-6 py-3">
-          Blood Group
-        </th>
-        <th scope="col" class="px-6 py-3">
           District
         </th>
         <th scope="col" class="px-6 py-3">
+          Email
+        </th>
+        <th scope="col" class="px-6 py-3">
           Phone
+        </th>
+         <th scope="col" class="px-6 py-3">
+          Whatsapp
         </th>
       </tr>
     </thead>
@@ -95,13 +98,13 @@
               alt="Default Profile"
             />
            {{/if}}
-            <div class="pl-3">
+            <div class="pl-2">
               <div class="text-base font-semibold">{{firstname}}
                 {{lastname}}</div>
               <div class="font-normal text-gray-500">{{email}}</div>
             </div>
           </th>
-          <td class="px-6 py-4">
+          <td class="px-3 py-4">
             {{batch}}
           </td>
           <td class="px-6 py-4">
@@ -109,11 +112,7 @@
               {{startyear}}-{{endyear}}
             </div>
           </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center">
-              {{bloodgroup}}
-            </div>
-          </td>
+          
           <td class="px-6 py-4">
             <div class="flex items-center">
               {{district}}
@@ -121,7 +120,17 @@
           </td>
           <td class="px-6 py-4">
             <div class="flex items-center text-blue-900">
+              <a href="mailto:{{email}}">{{email}}</a>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center text-blue-900">
               <a href="tel:{{phone}}">{{phone}}</a>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center text-blue-900">
+              <a href="https://wa.me/{{whatsapp}}">{{whatsapp}}</a>
             </div>
           </td>
         </tr>

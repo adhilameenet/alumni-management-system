@@ -1,3 +1,25 @@
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-3">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 rounded-l-lg">
+                    Information
+                </th>
+                <th scope="col" class="px-6 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white dark:bg-gray-800 border-b-4">
+                <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Total Number of Feedbacks in <b>{{faculty.department}}</b> Department
+                </th>
+                <td class="py-4">
+                    <b>{{feedbackCount}}</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {{#if feedback}}
   <section class="bg-white dark:bg-gray-900">
   {{#each feedback}}
@@ -10,7 +32,7 @@
               <p class="text-2xl font-medium text-gray-900 dark:text-white">{{message}}</p>
           </blockquote>
           <figcaption class="flex items-center justify-center mt-6 space-x-3">
-              <img class="w-6 h-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="profile picture">
+              <img class="w-6 h-6 rounded-full" src="/img/user_avatar.png" alt="profile picture">
               <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
                   <div class="pr-3 font-medium text-gray-900 dark:text-white">{{name}}</div>
                   <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">{{batch}}</div>
