@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
   whatsapp: {
     type: Number,
   },
+  job : {
+    type : String
+  },
+  qualification : {
+    type : String
+  },
   bloodgroup: {
     type: String,
   },

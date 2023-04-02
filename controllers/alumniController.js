@@ -178,6 +178,8 @@ exports.postAlumniProfile = async (req, res) => {
     myProfile.email = req.body.email;
     myProfile.phone = req.body.phone;
     myProfile.whatsapp = req.body.whatsapp;
+    myProfile.job = req.body.job;
+    myProfile.qualification = req.body.qualification;
     myProfile.bloodgroup = req.body.bloodgroup;
     myProfile.gender = req.body.gender;
     myProfile.batch = req.body.batch;

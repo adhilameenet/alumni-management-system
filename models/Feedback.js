@@ -7,7 +7,6 @@ const feedbackSchema = new mongoose.Schema({
     batch : {
         type : String,
         required : true,
-        required : true
     },
     message : {
         type : String,

@@ -39,6 +39,11 @@
       <h5
         class="mb-1 text-xl font-semibold text-gray-900 dark:text-white"
       >{{firstname}} {{lastname}}</h5>
+      {{#if}}
+      <span class="text-lg font-semibold text-gray-500 dark:text-gray-400">{{job}}</span>
+      {{else}}
+      <span class="text-lg font-semibold text-gray-500 dark:text-gray-400">{{job}}</span>
+      {{/if}}
       <span class="text-lg text-gray-500 dark:text-gray-400">{{email}}</span>
       <span class="text-md text-gray-500 dark:text-gray-400">{{batch}}</span>
       <span

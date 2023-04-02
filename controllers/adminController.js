@@ -1,7 +1,4 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-// const fs = require('fs');
-// const path = require('path');
-// const pdf = require('pdf-creator-node');
 const Faculty = require("../models/Faculty");
 const Settings = require('../models/Settings')
 const Department = require("../models/Department");
@@ -164,7 +161,7 @@ exports.getLogout = (req, res) => {
 exports.getRecentPayments = async (req,res) => {
   try {
     const payments = await stripe.charges.list({
-      limit: 20,
+      limit: 30,
       status: 'succeeded',
     });
     const data = payments.data
@@ -232,44 +229,6 @@ exports.deleteOneDonation = async (req,res) => {
   res.redirect('/admin/view-donations')
 }
 
-// exports.getCreatePaymentLink = async (req,res) => {
-//   res.render('admin/create-payment-link', {
-//     title:"Create Payment Link",
-//     admin : req.session.admin
-//   })
-// }
-// exports.postCreatePaymentLink = async (req,res) => {
-//   try {
-//     const {name,description,amount} = req.body;
-//     const session = await stripe.checkout.sessions.create({
-//       line_items: [{
-//         name: 'T-shirt',
-//         description: 'Comfortable cotton t-shirt',
-//         amount: 2000,
-//         currency: 'inr',
-//         price_data: {
-//           currency: 'inr',
-//           unit_amount: 2000,
-//           product_data: {
-//             name: 'T-shirt',
-//             description: 'Comfortable cotton t-shirt'
-//           },
-//         },
-//         quantity: 1,
-//       }],
-//       mode:'payment',
-//       success_url:'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-//       cancel_url: 'https://example.com/cancel'
-//     })
-//     res.json({url : session})
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).render('errors/500', {
-//       title: "Internal Server Error"
-//     })
-//   }
-// }
-
 exports.getBloodDonors = async (req,res) => {
   const donors =  await User.find({isDonor:true, isVerified:true}).lean();
   const donorsCount =  await User.find({isDonor:true, isVerified:true}).count()
@@ -280,57 +239,6 @@ exports.getBloodDonors = async (req,res) => {
     admin : req.session.admin
   })
 }
-
-// exports.generateBloodDonorsPDF = async(req,res,next) => {
-  // const donors =  await User.find({isDonor:true, isVerified:true});
-  // const html = fs.readFileSync(path.join(__dirname + '../../views/admin/blood-donor.hbs'), 'utf-8');
-  // const filename = 'blood_donors' + '.pdf';
-  // let array = [];
-  // console.log(donors)
-  // donors.forEach(d => {
-  //   const prod = {
-  //     name : d.firstname,
-  //     bloodgroup : d.bloodgroup,
-  //     phone : d.phone,
-  //     location : d.location,
-  //     district : d.district
-  //   }
-  //   array.push(prod);
-  // });
-  // const options = {
-  //   formate: 'A4',
-  //   orientation: 'portrait',
-  //   border: '2mm',
-  //   header: {
-  //       height: '15mm',
-  //       contents: '<h4 style=" color: red;font-size:20;font-weight:800;text-align:center;">Blood Donors</h4>'
-  //   },
-  //   childProcessOptions: {
-  //     env: {
-  //       OPENSSL_CONF: '/dev/null',
-  //     },
-  //   }
-  // }
-  // const document = {
-  //   html : html,
-  //   data : {
-  //     products : array
-  //   },
-  //   path:'../public/' + filename  
-  // }
-  // pdf.create(document,options).then(res => {
-  //   console.log(res)
-  // }).catch(err => {
-  //   console.log(err)
-  // })
-// }
-
-// exports.generateBloodDonorsPDF = async (req,res) => {
-//   doc.text('Hello World', 10, 10)
-//   doc.save('hello.pdf')
-//   console.log('okk!!')
-// } 
-
 
 exports.getEditDonationPage = async (req,res) => {
   const donationId = req.params.id;
