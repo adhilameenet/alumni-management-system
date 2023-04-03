@@ -1,3 +1,4 @@
+const { v4 } = require("uuid");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const Faculty = require("../models/Faculty");
 const Settings = require('../models/Settings')
